@@ -38,6 +38,7 @@ exports.getUsersByMail = async function (req, res) {
 exports.createUser = async function (req, res) {
     // Req.Body contains the form submit values.
     console.log("llegue al controller",req.body)
+    if(req.body.profesor){
     var User = {
         email: req.body.email,
         password: req.body.password,
@@ -51,12 +52,25 @@ exports.createUser = async function (req, res) {
         profesor:{
             titulo: req.body.profesor.titulo,
             exp: req.body.profesor.exp
-        },
+        }}}
+    else{
+        var User = {
+            email: req.body.email,
+            password: req.body.password,
+            nombre: req.body.nombre,
+            apellido: req.body.apellido,
+            telefono: req.body.telefono,
+            ciudad: req.body.ciudad,
+            preguntaSeg: req.body.preguntaSeg,
+            respuesta: req.body.respuesta,
+            fechaNac: req.body.fechaNac,
         alumno:{
             ultimoAlcanzado: req.body.alumno.ultimoAlcanzado,
             estadoEstudio: req.body.alumno.estadoEstudio
-        }        
+        }   
     }
+}        
+    
     try {
         // Calling the Service function with the new object from the Request Body
         var createdUser = await UserService.createUser(User)
