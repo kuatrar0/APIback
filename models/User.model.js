@@ -3,10 +3,24 @@ var mongoosePaginate = require('mongoose-paginate')
 
 
 var UserSchema = new mongoose.Schema({
-    name: String,
     email: String,
+    telefono: String,
     password: String,
-    date: Date
+    nombre: String,
+    apellido: String,
+    ciudad: String,
+    rol: String,
+    preguntaSeg: String,
+    respuesta: String,
+    fechaNac: Date,
+    profesor: {
+        titulo: String,
+        exp: String
+    },
+    alumno: {
+        ultimoAlcanzado: String,
+        estadoEstudio: String
+    }
 })
 
 UserSchema.plugin(mongoosePaginate)
