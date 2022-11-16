@@ -5,11 +5,10 @@ var ComentarioSchema = new mongoose.Schema({
     ClaseID: String,
     AlumnoID: String,
     Comentario: String,
-    Clasificacion: String,
-    
+    Clasificacion: Number,
 })
 
-ClaseSchema.plugin(mongoosePaginate)
+ComentarioSchema.plugin(mongoosePaginate)
 const Comentario = mongoose.model('Comentario', ComentarioSchema)
 
-module.exports = Clase;
+module.exports = Comentario;
