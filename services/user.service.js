@@ -32,6 +32,7 @@ exports.createUser = async function (user) {
     // Creating a new Mongoose Object by using the new keyword
     var hashedPassword = bcrypt.hashSync(user.password, 8);
     
+    if(user.profesor){
     var newUser = new User({
         email: user.email,
         password: hashedPassword,
@@ -45,12 +46,24 @@ exports.createUser = async function (user) {
         profesor:{
             titulo: user.profesor.titulo,
             exp: user.profesor.exp
-        },
+        }})}
+    else{
+        var newUser = new User ({
+            email: user.email,
+            password: hashedPassword,
+            nombre: user.nombre,
+            apellido: user.apellido,
+            telefono: user.telefono,
+            ciudad: user.ciudad,
+            preguntaSeg: user.preguntaSeg,
+            respuesta: user.respuesta,
+            fechaNac: user.fechaNac,
         alumno:{
             ultimoAlcanzado: user.alumno.ultimoAlcanzado,
             estadoEstudio: user.alumno.estadoEstudio
-        }      
+        }   
     })
+}
 
     try {
         // Saving the User 
