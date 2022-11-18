@@ -2,14 +2,17 @@ var mongoose = require('mongoose')
 var mongoosePaginate = require('mongoose-paginate')
 
 var ComentarioAAprobarSchema = new mongoose.Schema({
-    ClaseID: String,
-    AlumnoID: String,
-    Comentario: String,
-    Clasificacion: Number,
+
+    claseID: String,
+    alumnoID: String,
+    comentario: String,
+    clasificacion: Number,
+    estado: String, //puede ser Pendiente, Aprobado o Rechazado
+    razonDeRechazo: String
     
 })
 
 ComentarioAAprobarSchema.plugin(mongoosePaginate)
-const ComentarioAAprobar = mongoose.model('Comentario', ComentarioAAprobarSchema)
+const ComentarioAAprobar = mongoose.model('ComentarioAAprobar', ComentarioAAprobarSchema)
 
 module.exports = ComentarioAAprobar;
