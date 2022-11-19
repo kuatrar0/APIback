@@ -110,19 +110,20 @@ exports.updateUser = async function (user) {
 }
 
 exports.updateUserPass = async function (user, respuesta) {
-
     var id = { name: user._id }
-    if (respuesta.toLowerCase() == user.respuesta) {
-        try {
-            //Find the old User Object by the Id
-            var oldUser = await User.findOne(id);
-        } catch (e) {
-            throw Error("Error occured while Finding the User")
-        }
-        // If no old User Object exists return false
-        if (!oldUser) {
-            return false;
-        }
+    try {
+        //Find the old User Object by the Id
+        var oldUser = await User.findOne(id);
+    } catch (e) {
+        throw Error("Error occured while Finding the User")
+    }
+    // If no old User Object exists return false
+    if (!oldUser) {
+        return false;
+    }
+    
+    if (respuesta.toLowerCase() == oldUser.respuesta) {
+
         //Edit the User Object
         var hashedPassword = bcrypt.hashSync(user.password, 8);
         oldUser.password = hashedPassword
@@ -133,7 +134,7 @@ exports.updateUserPass = async function (user, respuesta) {
             throw Error("And Error occured while updating the User");
         }
     }
-    else{
+    else {
         throw Error("Respuesta incorrecta")
     }
 }
@@ -143,7 +144,7 @@ exports.updateUserPass = async function (user, respuesta) {
 exports.getPreguntaSeg = async function (email) {
     var busqueda = await User.findOne({
         email: email
-    }); 
+    });
     return busqueda.preguntaSeg
 
 }

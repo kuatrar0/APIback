@@ -5,13 +5,13 @@ var UserImgService =require('../services/userImg.service');
 _this = this;
 
 // Async Controller function to get the To do List
-exports.getUsers = async function (req, res, next) {
+exports.getUsers = async function (req, res) {  // esta pero ver tema paginate
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 10;
     try {
-        var Users = await UserService.getUsers({}, page, limit)
+        var Users = await UserService.getUsers({})
         // Return the Users list with the appropriate HTTP password Code and Message.
         return res.status(200).json({status: 200, data: Users, message: "Succesfully Users Recieved"});
     } catch (e) {
@@ -19,7 +19,42 @@ exports.getUsers = async function (req, res, next) {
         return res.status(400).json({status: 400, message: e.message});
     }
 }
-exports.getUsersByMail = async function (req, res) {
+exports.getUsersByID = async function (req, res) { // esta 
+
+    // Check the existence of the query parameters, If doesn't exists assign a default value
+    var page = req.query.page ? req.query.page : 1
+    var limit = req.query.limit ? req.query.limit : 10;
+    let filtro= {_id: req.body._id}
+    try {
+        var Users = await UserService.getUsers(filtro, page, limit)
+        // Return the Users list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({status: 200, data: Users, message: "Succesfully Users Recieved"});
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({status: 400, message: e.message});
+    }
+}
+
+
+exports.getUsersByClaseID = async function (req, res) { // esta 
+
+    // Check the existence of the query parameters, If doesn't exists assign a default value
+    let filtro= {_id: req.body.claseID}
+    try {
+        var Users = await UserService.getUsers(filtro)
+        // Return the Users list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({status: 200, data: Users, message: "Succesfully Users Recieved"});
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({status: 400, message: e.message});
+    }
+}
+
+
+
+
+
+exports.getUsersByMail = async function (req, res) {  // esta 
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
     var page = req.query.page ? req.query.page : 1
@@ -31,28 +66,26 @@ exports.getUsersByMail = async function (req, res) {
         return res.status(200).json({status: 200, data: Users, message: "Succesfully Users Recieved"});
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
-        return res.status(400).json({status: 400, message: e.message});
+        return res.status(404).json({status: 404, message: e.message});
     }
 }
 
-exports.createUser = async function (req, res) {
+exports.createUser = async function (req, res) {  // NOOOO esta 
     // Req.Body contains the form submit values.
     console.log("llegue al controller",req.body)
-    if(req.body.profesor){
+    if(req.body.esProfesor){
     var User = {
         email: req.body.email,
         password: req.body.password,
         nombre: req.body.nombre,
-        apellido: req.body.apellido,
         telefono: req.body.telefono,
         ciudad: req.body.ciudad,
         preguntaSeg: req.body.preguntaSeg,
         respuesta: req.body.respuesta,
         fechaNac: req.body.fechaNac,
-        profesor:{
-            titulo: req.body.profesor.titulo,
-            exp: req.body.profesor.exp
-        }}}
+        
+    
+        }}
     else{
         var User = {
             email: req.body.email,
@@ -64,10 +97,7 @@ exports.createUser = async function (req, res) {
             preguntaSeg: req.body.preguntaSeg,
             respuesta: req.body.respuesta,
             fechaNac: req.body.fechaNac,
-        alumno:{
-            ultimoAlcanzado: req.body.alumno.ultimoAlcanzado,
-            estadoEstudio: req.body.alumno.estadoEstudio
-        }   
+        
     }
 }        
     
@@ -82,19 +112,17 @@ exports.createUser = async function (req, res) {
     }
 }
 
-exports.updateUser = async function (req, res, next) {
+exports.updateUser = async function (req, res) { // esta 
 
     // Id is necessary for the update
-    if (!req.body.name) {
-        return res.status(400).json({status: 400., message: "Name be present"})
+    if (!req.body._id) {
+        return res.status(400).json({status: 400., message: "no hay id!!!!! ALGO MALO PASO"})
     }
-
-    
     var User = {
        
-        name: req.body.name ? req.body.name : null,
-        email: req.body.email ? req.body.email : null,
-        password: req.body.password ? req.body.password : null
+        _id: req.body._id ? req.body._id : null,
+        telefono: req.body.telefono ? req.body.telefono : null
+
     }
     try {
         var updatedUser = await UserService.updateUser(User)
@@ -104,7 +132,34 @@ exports.updateUser = async function (req, res, next) {
     }
 }
 
-exports.removeUser = async function (req, res, next) {
+
+exports.updateUserPassword = async function (req, res) { // ESTA
+
+    // Id is necessary for the update
+    if (!req.body._id) {
+        return res.status(400).json({status: 400., message: "no hay id!!!!! aaaa llegueeee acaaa wowowoowwo"})
+    }
+    var User = {
+       
+        _id: req.body._id ? req.body._id : null,
+        telefono: req.body.telefono ? req.body.telefono : null
+
+    }
+    var Respuesta = {
+        respuesta: req.body.respuesta ? req.body.respuesta : null,
+    }
+
+    try {
+        var updatedUser = await UserService.updateUser(User, Respuesta)
+        return res.status(200).json({status: 200, data: updatedUser, message: "Succesfully Updated User Password"})
+    } catch (e) {
+        return res.status(400).json({status: 400., message: e.message})
+    }
+}
+
+
+
+exports.removeUser = async function (req, res, next) { // ESTA
 
     var id = req.params.id;
     try {
@@ -116,7 +171,7 @@ exports.removeUser = async function (req, res, next) {
 }
 
 
-exports.loginUser = async function (req, res) {
+exports.loginUser = async function (req, res) { // ESTA
     // Req.Body contains the form submit values.
     console.log("body",req.body)
     var User = {
