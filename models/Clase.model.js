@@ -11,6 +11,7 @@ var ClaseSchema = new mongoose.Schema({  // sacar VAR
     costo: { type:Number, required: true},
     clasificacion: { type:Number, required: false},
     estadoClase: { type:String, required: true},//publica - oculta
+    eliminado: { type:Boolean, required: false},
     descripcion: { type:String, required: true},
     alumnos:[{
         idAlu : String,

@@ -20,12 +20,7 @@ var UserSchema = new mongoose.Schema({
     estadoEstudio: String,
     clasesAnotado:[{
         idclase : String,
-        idProfesor: Number,
-        profesor: String,
-        materia: String,
-        duracion: Number,
-        frequencia: String,
-        costo: Number,
+        idProfesor: Number
     }],
 })
 

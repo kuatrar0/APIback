@@ -5,8 +5,8 @@ var SolicitudUnirseSchema = new mongoose.Schema({
 
     claseID: String,
     alumnoID: String,
-    comentario: String,
-    clasificacion: Number,
+    solicitud: String,
+    horario: String, 
     estado: String //puede ser Pendiente, Aprobado o Rechazado
     
 })
