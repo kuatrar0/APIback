@@ -78,7 +78,8 @@ exports.aceptarSolicitud = async function (solicitud) {
     }])
     usuarioAUnir.clasesAnotado = usuarioAUnir.clasesAnotado.concat([{
         idclase: claseAUnir._id,
-        idProfesor: claseAUnir._idProfesor
+        idProfesor: claseAUnir._idProfesor,
+        estadoDeClase: "aceptada"
     }])
     try {
         var controlUser = await usuarioAUnir.save()

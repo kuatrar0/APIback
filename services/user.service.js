@@ -87,7 +87,7 @@ exports.createUser = async function (user) {
 
 exports.updateUser = async function (user) {
 
-    var id = { name: user._id }
+    var id = user._id 
 
     try {
         //Find the old User Object by the Id

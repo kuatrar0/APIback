@@ -171,7 +171,7 @@ exports.removeUser = async function (req, res, next) { // ESTA
 }
 
 
-exports.loginUser = async function (req, res) { // ESTA
+exports.loginUser = async function (req, res) { //PREGUNTAR TEMA PROFESOR O ALUMNO COMO HACER
     // Req.Body contains the form submit values.
     console.log("body",req.body)
     var User = {
