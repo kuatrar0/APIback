@@ -11,10 +11,16 @@ router.get('/test', function(req, res) {
     res.send('Llegaste a la ruta de users');
   });
 router.post('/registration', UserController.createUser)
-router.post('/login/', UserController.loginUse)
-/*
+router.post('/login/', UserController.loginUser)
 router.get('/',Authorization, UserController.getUsers)
+router.post('/userByID', Authorization, UserController.getUsersByID)
+router.post('/userByClaseID', Authorization, UserController.getUsersByClaseID)
 router.post('/userByMail', Authorization, UserController.getUsersByMail)
+router.put('/actualizarUser', Authorization, UserController.updateUser)
+router.put('/actualizarUserPass', Authorization, UserController.updateUser) 
+
+
+/*
 router.put('/', Authorization, UserController.updateUser)
 router.delete('/:id', Authorization, UserController.removeUser)
 router.post('/guardarImgUser',UserController.guardarImagenUser)

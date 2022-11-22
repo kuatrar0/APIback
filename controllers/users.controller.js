@@ -98,7 +98,9 @@ exports.createUser = async function (req, res) {  // NOOOO esta
             preguntaSeg: req.body.preguntaSeg,
             respuesta: req.body.respuesta,
             fechaNac: req.body.fechaNac,
-            esProfesor: req.body.esProfesor
+            esProfesor: req.body.esProfesor,
+            ultimoAlcanzado: req.body.ultimoAlcanzado,
+            estadoEstudio: req.body.estadoEstudio
     }
 }        
     

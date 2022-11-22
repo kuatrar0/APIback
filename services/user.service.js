@@ -68,7 +68,9 @@ exports.createUser = async function (user) {
             ultimoAlcanzado: user.ultimoAlcanzado,
             estadoEstudio: user.estadoEstudio,
             clasesAnotado: [],
-            esProfesor: user.esProfesor
+            esProfesor: user.esProfesor,
+            ultimoAlcanzado: user.ultimoAlcanzado,
+            estadoEstudio: user.estadoEstudio
         })
     }
 
