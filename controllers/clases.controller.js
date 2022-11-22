@@ -65,7 +65,7 @@ exports.getClasesActivas = async function (req, res) {  // esta
     }
 }
 
-
+////////////////////// HACER GET CLASES DE ALUMNO PREFUNTARLE A LOS CHICOS
 
 exports.getComentariosDeClase = async function (req, res) {  // esta 
 
@@ -97,11 +97,6 @@ exports.getAlumnos = async function (req, res) {
     }
 
 }
-
-
-//modificar clase, modif estado, baja clase, eliminar clase
-
-
 
 
 exports.bajaClase = async function (req, res) { // esta 

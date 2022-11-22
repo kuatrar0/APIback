@@ -72,7 +72,7 @@ exports.getUsersByMail = async function (req, res) {  // esta
 
 exports.createUser = async function (req, res) {  // NOOOO esta 
     // Req.Body contains the form submit values.
-    console.log("llegue al controller",req.body)
+    //console.log("llegue al controller",req.body)
     if(req.body.esProfesor){
     var User = {
         email: req.body.email,
@@ -83,8 +83,9 @@ exports.createUser = async function (req, res) {  // NOOOO esta
         preguntaSeg: req.body.preguntaSeg,
         respuesta: req.body.respuesta,
         fechaNac: req.body.fechaNac,
-        
-    
+        esProfesor: req.body.esProfesor,
+        titulo: req.body.titulo,
+        exp: req.body.exp
         }}
     else{
         var User = {
@@ -97,7 +98,7 @@ exports.createUser = async function (req, res) {  // NOOOO esta
             preguntaSeg: req.body.preguntaSeg,
             respuesta: req.body.respuesta,
             fechaNac: req.body.fechaNac,
-        
+            esProfesor: req.body.esProfesor
     }
 }        
     

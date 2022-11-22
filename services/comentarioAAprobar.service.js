@@ -10,6 +10,7 @@ _this = this
 exports.createComentarioAAprobar = async function (ComentarioSolicitud) {
     var newComentatarioAAprobar = new ComentarioAAprobar({
         claseID: ComentarioSolicitud.claseID ,
+        profesorID: ComentarioSolicitud.profesorID,
         alumnoID: ComentarioSolicitud.alumnoID,
         nombreAlumnoID: ComentarioSolicitud.nombreAlumnoID,
         comentario:  ComentarioSolicitud.comentario,
@@ -83,9 +84,9 @@ exports.aprobarComentario= async function (ComentarioAprobado) {
     }
     claseAComentar.comentarios= claseAComentar.concat([{
         idAlu : ComentarioAprobado.alumnoID,
-        nombreAlu: ComentarioAprobado.alumnoID,
-        textoComentario: ComentarioAprobado.alumnoID,
-        calsificacionComent: ComentarioAprobado.alumnoID,
+        nombreAlu: ComentarioAprobado.nombreAlu,
+        textoComentario: ComentarioAprobado.textoComentario,
+        calsificacionComent: ComentarioAprobado.calsificacionComent,
     }
     ])
 

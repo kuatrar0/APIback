@@ -4,6 +4,7 @@ var mongoosePaginate = require('mongoose-paginate')
 var ComentarioAAprobarSchema = new mongoose.Schema({
 
     claseID: String,
+    profesorID: String,
     alumnoID: String,
     nombreAlumnoID: String,
     comentario: String,

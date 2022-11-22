@@ -118,7 +118,7 @@ exports.rechazarSolicitud = async function (solicitudRechazada) {
     }
 }
 
-exports.getSolicitudesByClaseID = async function (query) {
+exports.getSolicitudes = async function (query) {
 
     // Options setup for the mongoose paginate
    
