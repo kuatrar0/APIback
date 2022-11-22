@@ -15,7 +15,8 @@ var ClaseSchema = new mongoose.Schema({  // sacar VAR
     descripcion: { type:String, required: true},
     alumnos:[{
         idAlu : String,
-        nombreAlu: String
+        nombreAlu: String,
+        baja: Boolean
     }],
     comentarios:[{
         idAlu : String,

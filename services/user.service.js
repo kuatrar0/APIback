@@ -189,7 +189,7 @@ exports.loginUser = async function (user) {
     } catch (e) {
         // return a Error message describing the reason     
         throw Error("Error while Login User")
-    }
+}
 
 
 

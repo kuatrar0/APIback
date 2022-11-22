@@ -74,12 +74,14 @@ exports.aceptarSolicitud = async function (solicitud) {
 
     claseAUnir.alumnos = claseAUnir.concat([{
         idAlu: usuarioAUnir._id,
-        nombreAlu: usuarioAUnir.nombre
+        nombreAlu: usuarioAUnir.nombre,
+        baja: false
     }])
     usuarioAUnir.clasesAnotado = usuarioAUnir.clasesAnotado.concat([{
         idclase: claseAUnir._id,
         idProfesor: claseAUnir._idProfesor,
-        estadoDeClase: "aceptada"
+        estadoDeClase: "aceptada",
+        baja: false
     }])
     try {
         var controlUser = await usuarioAUnir.save()
@@ -108,27 +110,7 @@ exports.rechazarSolicitud = async function (solicitudRechazada) {
         return false;
     }
     try {
-        //Find the old User Object by the Id
-        var usuarioAUnir = await User.findById(solRechaz.alumnoID);
-    } catch (e) {
-        throw Error("Error occured while Finding the User")
-    }
-    // If no old User Object exists return false
-    if (!usuarioAUnir) {
-        return false;
-    }
-    try {
-        //Find the old User Object by the Id
-        var claseAUnir = await solRechaz.findById(solRechaz.claseID);
-    } catch (e) {
-        throw Error("Error occured while Finding the Clase")
-    }
-    // If no old User Object exists return false
-    if (!claseAUnir || claseAUnir.eliminado == true || claseAUnir.estadoClase == "oculta") {
-        return false;
-    }
-    try {
-        controlSol.estado = "rechazado"
+        solRechaz.estado = "rechazada"
         var savedSolicitud = await solRechaz.save()
         return savedSolicitud;
     } catch (e) {
@@ -136,19 +118,17 @@ exports.rechazarSolicitud = async function (solicitudRechazada) {
     }
 }
 
-exports.getSolicitudes = async function (aluID, claID) {
+exports.getSolicitudesByClaseID = async function (query) {
 
     // Options setup for the mongoose paginate
    
     // Try Catch the awaited promise to handle the error 
-    try {
-        var SolicitudesUnirse = await SolicitudUnirse.find({estado: "pendiente", alumnoID:aluID,  claseID:claID})
-        // Return the Userd list that was retured by the mongoose promise
-        return SolicitudesUnirse;
-
-    } catch (e) {
-        // return a Error message describing the reason 
-        console.log("error services",e)
-        throw Error('Error while Paginating Users');
+    try{ 
+        var Solicitudes = await SolicitudesUnirse.paginate(query)
+        return Solicitudes
+    }
+    catch(e){
+        console.log("error services", e)
+        throw Error('Error while Paginating Clases');
     }
 }

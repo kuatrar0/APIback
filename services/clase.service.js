@@ -37,17 +37,31 @@ exports.createClase = async function (clase) {
 }
 
 exports.getComentarios = async function (query) {
-    try{ 
+    try {
         var Clase = await Clase.paginate(query)
         return Clase.comentarios
     }
-    catch(e){
+    catch (e) {
         console.log("error services", e)
         throw Error('Error while Paginating Clases');
     }
 }
+
+
+
+exports.getAlumnos = async function (query) {
+    try {
+        var Clase = await Clase.paginate(query)
+        return Clase.alumnos
+    }
+    catch (e) {
+        console.log("error services", e)
+        throw Error('Error while Paginating Clases');
+    }
+}
+
 exports.modificarClase = async function (clase) {
-    var id = clase._id 
+    var id = clase._id
 
     try {
         //Find the old User Object by the Id
@@ -72,7 +86,7 @@ exports.modificarClase = async function (clase) {
 }
 
 
-
+/*
 exports.eliminarClase = async function (id) {
     try {
         var deleted = await Clase.remove({
@@ -86,6 +100,35 @@ exports.eliminarClase = async function (id) {
         throw Error("Error Occured while Deleting the Clase")
     }
 }
+ VOY A HACERLO CON BAJA LOGICA
+*/
+
+
+exports.eliminarClase = async function (clase) {
+    var id = clase._id
+
+    try {
+        //Find the old User Object by the Id
+        var oldClase = await Clase.findOne(id);
+    } catch (e) {
+        throw Error("Error occured while Finding the Clase")
+    }
+    // If no old User Object exists return false
+    if (!oldClase) {
+        return false;
+    }
+    //Edit the User Object
+    oldClase.eliminado = true
+    try {
+        var savedClase = await oldClase.save()
+        return savedClase;
+    } catch (e) {
+        throw Error("And Error occured while updating the Clase");
+    }
+}
+
+
+
 exports.getClases = async function (query) {
     try {
         console.log("Query", query)
@@ -100,7 +143,7 @@ exports.getClases = async function (query) {
     }
 }
 exports.modificarEstado = async function (clase) {
-    var id = clase._id 
+    var id = clase._id
 
     try {
         //Find the old User Object by the Id
@@ -119,5 +162,50 @@ exports.modificarEstado = async function (clase) {
         return savedClase;
     } catch (e) {
         throw Error("And Error occured while updating the Clase");
+    }
+}
+
+exports.getAlumnos = async function (query) {
+    try {
+        var Clase = await Clase.paginate(query)
+        return Clase.alumnos
+    }
+    catch (e) {
+        console.log("error services", e)
+        throw Error('Error while Paginating Clases');
+    }
+}
+
+
+exports.bajaClase = async function (ClaseBajar, AlumnoBaja) {
+    let idClase = ClaseBajar._id
+    let idAlumno = AlumnoBaja._id
+    try {
+        //Find the old User Object by the Id
+        var claseBajarse = await Clase.findById(idClase);
+
+    } catch (e) {
+        throw Error("Error occured while Finding the Clase")
+    }
+    if (!claseBajarse) {
+        return false;
+    }
+    try {
+        //Find the old User Object by the Id
+        var usuarioABajar = await User.findById(AlumnoBaja._id);
+    } catch (e) {
+        throw Error("Error occured while Finding the User")
+    }
+    // If no old User Object exists return false
+    if (!usuarioABajar) {
+        return false;
+    }
+    try {
+        usuarioABajar.clasesAnotado.find(idClase).baja = true  // preguntar aca que hacer!!!!!!!!!!!!!!!!!!!!!!!
+        claseBajarse.alumnos.find(idAlumno).baja = true
+        var savedSolicitud = await solRechaz.save()
+        return savedSolicitud;
+    } catch (e) {
+        throw Error("And Error occured while updating the User");
     }
 }
