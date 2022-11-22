@@ -11,7 +11,7 @@ exports.getUsers = async function (req, res) {  // esta pero ver tema paginate
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 10;
     try {
-        var Users = await UserService.getUsers({})
+        var Users = await UserService.getUsers({},page, limit)
         // Return the Users list with the appropriate HTTP password Code and Message.
         return res.status(200).json({status: 200, data: Users, message: "Succesfully Users Recieved"});
     } catch (e) {
@@ -35,7 +35,7 @@ exports.getUsersByID = async function (req, res) { // esta
     }
 }
 
-
+/** 
 exports.getUsersByClaseID = async function (req, res) { // esta 
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
@@ -50,7 +50,7 @@ exports.getUsersByClaseID = async function (req, res) { // esta
     }
 }
 
-
+*/
 
 
 
@@ -143,17 +143,16 @@ exports.updateUserPassword = async function (req, res) { // ESTA
         return res.status(400).json({status: 400., message: "no hay id!!!!! aaaa llegueeee acaaa wowowoowwo"})
     }
     var User = {
-       
         _id: req.body._id ? req.body._id : null,
-        telefono: req.body.telefono ? req.body.telefono : null
-
+        password: req.body.password ? req.body.password:null
     }
+
     var Respuesta = {
         respuesta: req.body.respuesta ? req.body.respuesta : null,
     }
 
     try {
-        var updatedUser = await UserService.updateUser(User, Respuesta)
+        var updatedUser = await UserService.updateUserPass(User, Respuesta)
         return res.status(200).json({status: 200, data: updatedUser, message: "Succesfully Updated User Password"})
     } catch (e) {
         return res.status(400).json({status: 400., message: e.message})

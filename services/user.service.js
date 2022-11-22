@@ -96,7 +96,7 @@ exports.updateUser = async function (user) {
 
     try {
         //Find the old User Object by the Id
-        var oldUser = await User.findOne(id);
+        var oldUser = await User.findById(id);
     } catch (e) {
         throw Error("Error occured while Finding the User")
     }

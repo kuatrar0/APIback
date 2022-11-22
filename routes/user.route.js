@@ -14,10 +14,11 @@ router.post('/registration', UserController.createUser)
 router.post('/login/', UserController.loginUser)
 router.get('/',Authorization, UserController.getUsers)
 router.post('/userByID', Authorization, UserController.getUsersByID)
-router.post('/userByClaseID', Authorization, UserController.getUsersByClaseID)
+//router.post('/userByClaseID', Authorization, UserController.getUsersByClaseID)
 router.post('/userByMail', Authorization, UserController.getUsersByMail)
 router.put('/actualizarUser', Authorization, UserController.updateUser)
-router.put('/actualizarUserPass', Authorization, UserController.updateUser) 
+router.put('/actualizarUserPass', Authorization, UserController.updateUserPassword) 
+// preguntar como hacer get de pregunta del usuario par amostrar en el front
 
 
 /*
