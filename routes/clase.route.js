@@ -8,7 +8,6 @@ var Authorization = require('../auth/authorization');
 
 
 router.post('/creacionClase', ClaseController.createClase)
-
 router.post('/getClasesPID', ClaseController.getClasesByidProfesor)
 router.get('/getClases', ClaseController.getClases)
 router.get('/getClasesActivas', ClaseController.getClasesActivas)
