@@ -14,7 +14,7 @@ router.post('/getComentariosAAprobarPID', ComentarioAAprobarController.getComent
 
 
 
-
+module.exports = router;
 
 
 

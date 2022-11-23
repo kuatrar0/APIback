@@ -13,7 +13,7 @@ router.post('/rechazarSolicitud',SolicitudUnirseController.rechazarSolicitud)
 router.post('/getSolicitud',SolicitudUnirseController.getSolicitudesByClaseID)
 
 
-
+module.exports = router;
 
 
 

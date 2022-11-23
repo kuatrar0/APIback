@@ -1,4 +1,4 @@
-var UserService = require('../services/clase.service');
+var ClaseService = require('../services/clase.service');
 
 exports.createClase = async function (req, res) {
     // Req.Body contains the form submit values.
