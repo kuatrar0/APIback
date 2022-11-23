@@ -8,30 +8,29 @@ exports.createClase = async function (req, res) {
         profesor: req.body.profesor,
         materia: req.body.materia,
         duracion: req.body.duracion,
-        frequencia: req.body.frequencia,
-        costo: req.body.frequencia,
+        frecuencia: req.body.frecuencia,
+        costo: req.body.costo,
+        descripcion: req.body.descripcion
     }
     try {
         // Calling the Service function with the new object from the Request Body
         var createdClase = await ClaseService.createClase(Clase)
-        return res.status(201).json({ createdClase, message: "Succesfully Created User" })
+        return res.status(201).json({ createdClase, message: "Succesfully Created clase " })
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         console.log(e)
-        return res.status(400).json({ status: 400, message: "User Creation was Unsuccesfull" })
+        return res.status(400).json({ status: 400, message: "clase Creation was Unsuccesfull" })
     }
 }
 
 exports.getClasesByidProfesor = async function (req, res) {  // esta 
-
+    console.log("llegue al controller", req.body)
     // Check the existence of the query parameters, If doesn't exists assign a default value
-    var page = req.query.page ? req.query.page : 1
-    var limit = req.query.limit ? req.query.limit : 10;
-    let filtro = { idProfesror: req.body.idProfesor, eliminado: false }
+    let filtro = { idProfesor: req.body.idProfesor, eliminado: false }
     try {
         var Clases = await ClaseService.getClases(filtro, page, limit)
         // Return the Users list with the appropriate HTTP password Code and Message.
-        return res.status(200).json({ status: 200, data: Clases, message: "Succesfully Clases Recieved" });
+        return res.status(200).json({ status: 200, data: Clases, message: "Succesfully Clases por id prof Recieved" });
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         return res.status(404).json({ status: 404, message: e.message });
@@ -58,7 +57,7 @@ exports.getClasesActivas = async function (req, res) {  // esta
     try {
         var Clases = await ClaseService.getClases(filtro)
         // Return the Users list with the appropriate HTTP password Code and Message.
-        return res.status(200).json({ status: 200, data: Clases, message: "Succesfully Clases Recieved" });
+        return res.status(200).json({ status: 200, data: Clases, message: "Succesfully Clases Activas Recieved" });
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         return res.status(404).json({ status: 404, message: e.message });
@@ -76,7 +75,7 @@ exports.getComentariosDeClase = async function (req, res) {  // esta
     try {
         var Comentarios = await ClaseService.getComentarios(filtro, page, limit)
         // Return the Users list with the appropriate HTTP password Code and Message.
-        return res.status(200).json({ status: 200, data: Comentarios, message: "Succesfully Clases Recieved" });
+        return res.status(200).json({ status: 200, data: Comentarios, message: "Succesfully comentarios Recieved" });
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         return res.status(404).json({ status: 404, message: e.message });
@@ -90,7 +89,7 @@ exports.getAlumnos = async function (req, res) {
     try {
         var Alumnos = await ClaseService.getAlumnos(filtro)
         // Return the Users list with the appropriate HTTP password Code and Message.
-        return res.status(200).json({ status: 200, data: Alumnos, message: "Succesfully Clases Recieved" });
+        return res.status(200).json({ status: 200, data: Alumnos, message: "Succesfully alumnos Recieved" });
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         return res.status(404).json({ status: 404, message: e.message });
@@ -115,7 +114,26 @@ exports.bajaClase = async function (req, res) { // esta
     }
     try {
         var bajaClase = await ClaseService.bajaClase(ClaseBajar, AlumnoBaja)
-        return res.status(200).json({status: 200, data: bajaClase, message: "Succesfully Updated User"})
+        return res.status(200).json({status: 200, data: bajaClase, message: "Succesfully baja clase"})
+    } catch (e) {
+        return res.status(400).json({status: 400., message: e.message})
+    }
+}
+
+
+
+exports.eliminarClase = async function (req, res) { // esta 
+
+    // Id is necessary for the update
+    if (!req.body._id) {
+        return res.status(400).json({status: 400., message: "no hay id!!!!! ALGO MALO PASO"})
+    }
+    var Clase = {
+        _id: req.body._id ? req.body._id : null,
+    }
+    try {
+        var eliminada = await ClaseService.eliminarClase(Clase)
+        return res.status(200).json({status: 200, data: eliminada, message: "Succesfully Clase Eliminada"})
     } catch (e) {
         return res.status(400).json({status: 400., message: e.message})
     }
@@ -139,7 +157,7 @@ exports.modificarClase = async function (req, res) { // esta
     }
     try {
         var modificarClase = await ClaseService.modificarClase(Clase)
-        return res.status(200).json({status: 200, data: modificarClase, message: "Succesfully Updated User"})
+        return res.status(200).json({status: 200, data: modificarClase, message: "Succesfully Updated clase"})
     } catch (e) {
         return res.status(400).json({status: 400., message: e.message})
     }
@@ -158,12 +176,12 @@ exports.modificarEstado = async function (req, res) { // esta
     }
     try {
         var modificarEstado = await ClaseService.modificarEstado(Clase)
-        return res.status(200).json({status: 200, data: modificarEstado, message: "Succesfully Updated User"})
+        return res.status(200).json({status: 200, data: modificarEstado, message: "Succesfully Updated estado de la clase"})
     } catch (e) {
         return res.status(400).json({status: 400., message: e.message})
     }
 }
-
+//hacer eliminar clase
 
 
 /*

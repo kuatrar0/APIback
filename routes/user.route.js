@@ -18,7 +18,7 @@ router.post('/userByID', Authorization, UserController.getUsersByID)
 router.post('/userByMail', Authorization, UserController.getUsersByMail)
 router.put('/actualizarUser', Authorization, UserController.updateUser)
 router.put('/actualizarUserPass', Authorization, UserController.updateUserPassword) 
-// preguntar como hacer get de pregunta del usuario par amostrar en el front
+// preguntar como hacer get de pregunta del usuario para mostrar en el front
 
 
 /*

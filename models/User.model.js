@@ -18,7 +18,7 @@ var UserSchema = new mongoose.Schema({
     estadoEstudio: String,
     clasesAnotado:[{
         idclase : String,
-        idProfesor: Number,
+        idProfesor: String,
         estadoDeClase: String,
         baja: Boolean
     }],

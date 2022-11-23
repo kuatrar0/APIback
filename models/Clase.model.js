@@ -3,11 +3,11 @@ var mongoosePaginate = require('mongoose-paginate')
 
 
 var ClaseSchema = new mongoose.Schema({  // sacar VAR
-    idProfesor: { type:Number, required: true},
+    idProfesor: { type:String, required: true},
     profesor: { type:String, required: true},
     materia:{ type:String, required: true},
     duracion:{ type:Number, required: true},
-    frequencia: { type:String, required: true},
+    frecuencia: { type:String, required: true},
     costo: { type:Number, required: true},
     clasificacion: { type:Number, required: false},
     estadoClase: { type:String, required: true},//publica - oculta

@@ -13,8 +13,9 @@ exports.createClase = async function (clase) {
         profesor: clase.profesor,
         materia: clase.materia,
         duracion: clase.duracion,
-        frequencia: clase.frequencia,
+        frecuencia: clase.frecuencia,
         costo: clase.costo,
+        descripcion: clase.descripcion,
         clasificacion: 0,
         estadoClase: "publica",
         alumnos: [],
@@ -75,7 +76,7 @@ exports.modificarClase = async function (clase) {
     }
     //Edit the User Object
     oldClase.duracion = clase.duracion
-    oldClase.frequencia = clase.frequencia
+    oldClase.frecuencia = clase.frecuencia
     oldClase.costo = clase.costo
     try {
         var savedClase = await oldClase.save()
