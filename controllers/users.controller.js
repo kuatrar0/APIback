@@ -86,7 +86,8 @@ exports.createUser = async function (req, res) {  // NOOOO esta
         esProfesor: req.body.esProfesor,
         titulo: req.body.titulo,
         exp: req.body.exp
-        }}
+        }
+    }
     else{
         var User = {
             email: req.body.email,
