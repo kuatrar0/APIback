@@ -6,13 +6,15 @@ exports.createComentario = async function (req, res) {
     console.log("llegue al controller", req.body)
     var Solicitud = {
         claseID: req.body.claseID,
+        profesorID: req.body.profesorID,
         alumnoID: req.body.alumnoID,
-        solicitud: req.body.solicitud,
-        horario: req.body.horario,
+        nombreAlumno: req.body.nombreAlumno,
+        comentario: req.body.comentario,
+        clasificacion: req.body.clasificacion,
     }
     try {
         // Calling the Service function with the new object from the Request Body
-        var createdSolicitud = await SolicitudUnirseService.createSolicitudUnirse(Solicitud)
+        var createdSolicitud = await ComentarioAAprobarService.createComentarioAAprobar(Solicitud)
         return res.status(201).json({ createdSolicitud, message: "Succesfully Created Solicitud" })
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.

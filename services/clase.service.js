@@ -40,8 +40,8 @@ exports.createClase = async function (clase) {
 
 exports.getComentarios = async function (query) {
     try {
-        var Clase = await Clase.find(query)
-        return Clase.comentarios
+        var Clases = await Clase.find(query)
+        return Clases.comentarios
     }
     catch (e) {
         console.log("error services", e)
@@ -50,11 +50,22 @@ exports.getComentarios = async function (query) {
 }
 
 
-
-exports.getAlumnos = async function (query) {
+//PEDIR AYUDA ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+exports.getAlumnosSer = async function (query, queryAlu) {
     try {
-        var Clase = await Clase.find(query)
-        return Clase.alumnos
+        var Clases = await Clase.paginate(query)
+        console.log(Clases)
+        if(Clases.alumnos == null){
+            throw Error("¡NO HAY ALUMNOS EN TU CLASE!")
+
+        }
+        else{
+            console.log("NO VACIA")
+            var Alumnos= Clases.alumnos.paginate(queryAlu)
+            console.log(Alumnos)
+            return Clases
+        }
+        
     }
     catch (e) {
         console.log("error services", e)
@@ -62,12 +73,12 @@ exports.getAlumnos = async function (query) {
     }
 }
 
-exports.modificarClase = async function (clase) {
+exports.modificarClaseSer = async function (clase) {
     var id = clase._id
 
     try {
         //Find the old User Object by the Id
-        var oldClase = await Clase.findOne(id);
+        var oldClase = await Clase.findById(id);
     } catch (e) {
         throw Error("Error occured while Finding the Clase")
     }
@@ -106,12 +117,12 @@ exports.eliminarClase = async function (id) {
 */
 
 
-exports.eliminarClase = async function (clase) {
+exports.eliminarClaseSer = async function (clase) {
     var id = clase._id
 
     try {
         //Find the old User Object by the Id
-        var oldClase = await Clase.findOne(id);
+        var oldClase = await Clase.findById(id);
     } catch (e) {
         throw Error("Error occured while Finding the Clase")
     }
@@ -145,12 +156,12 @@ exports.getClases = async function (query) {
         throw Error('Error while getting Clases');
     }
 }
-exports.modificarEstado = async function (clase) {
+exports.modificarEstadoSer = async function (clase) {
     var id = clase._id
 
     try {
         //Find the old User Object by the Id
-        var oldClase = await Clase.findOne(id);
+        var oldClase = await Clase.findById(id);
     } catch (e) {
         throw Error("Error occured while Finding the Clase")
     }
@@ -180,7 +191,7 @@ exports.getAlumnos = async function (query) {
 }
 
 
-exports.bajaClase = async function (ClaseBajar, AlumnoBaja) {
+exports.bajaClaseSer = async function (ClaseBajar, AlumnoBaja) {
     let idClase = ClaseBajar._id
     let idAlumno = AlumnoBaja._id
     try {
