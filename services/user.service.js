@@ -9,17 +9,13 @@ const SolicitudUnirse = require('../models/SolicitudUnirse.model');
 _this = this
 
 // Async function to get the User List
-exports.getUsers = async function (query, page, limit) {
+exports.getUsers = async function (query) {
 
     // Options setup for the mongoose paginate
-    var options = {
-        page,
-        limit
-    }
     // Try Catch the awaited promise to handle the error 
     try {
         console.log("Query", query)
-        var Users = await User.paginate(query, options)
+        var Users = await User.find(query)
         // Return the Userd list that was retured by the mongoose promise
         return Users;
 
@@ -195,18 +191,6 @@ exports.loginUser = async function (user) {
         // return a Error message describing the reason     
         throw Error("Error while Login User")
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

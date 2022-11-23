@@ -8,7 +8,7 @@ const Clase = require('../models/Clase.model');
 _this = this
 
 exports.createClase = async function (clase) {
-    var newClase = new clase({
+    var newClase = new Clase({
         idProfesor: clase.idProfesor,
         profesor: clase.profesor,
         materia: clase.materia,
@@ -18,6 +18,7 @@ exports.createClase = async function (clase) {
         descripcion: clase.descripcion,
         clasificacion: 0,
         estadoClase: "publica",
+        eliminado: false,
         alumnos: [],
         comentarios: []
     })
@@ -29,7 +30,7 @@ exports.createClase = async function (clase) {
         }, process.env.SECRET, {
             expiresIn: 86400 // expires in 24 hours
         });
-        return token;
+        return savedClase;
     } catch (e) {
         // return a Error message describing the reason 
         console.log(e)
@@ -39,7 +40,7 @@ exports.createClase = async function (clase) {
 
 exports.getComentarios = async function (query) {
     try {
-        var Clase = await Clase.paginate(query)
+        var Clase = await Clase.find(query)
         return Clase.comentarios
     }
     catch (e) {
@@ -52,7 +53,7 @@ exports.getComentarios = async function (query) {
 
 exports.getAlumnos = async function (query) {
     try {
-        var Clase = await Clase.paginate(query)
+        var Clase = await Clase.find(query)
         return Clase.alumnos
     }
     catch (e) {
@@ -131,9 +132,10 @@ exports.eliminarClase = async function (clase) {
 
 
 exports.getClases = async function (query) {
+    
     try {
         console.log("Query", query)
-        var Clases = await Clases.paginate(query)
+        var Clases = await Clase.find(query)
         // Return the Userd list that was retured by the mongoose promise
         return Clases;
 
@@ -168,7 +170,7 @@ exports.modificarEstado = async function (clase) {
 
 exports.getAlumnos = async function (query) {
     try {
-        var Clase = await Clase.paginate(query)
+        var Clase = await Clase.find(query)
         return Clase.alumnos
     }
     catch (e) {

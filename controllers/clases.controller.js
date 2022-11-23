@@ -23,12 +23,12 @@ exports.createClase = async function (req, res) {
     }
 }
 
-exports.getClasesByidProfesor = async function (req, res) {  // esta 
-    console.log("llegue al controller", req.body)
+exports.getClasesByidProfesor = async function (req, res) {  // esta
+    console.log(req.body)
     // Check the existence of the query parameters, If doesn't exists assign a default value
     let filtro = { idProfesor: req.body.idProfesor, eliminado: false }
     try {
-        var Clases = await ClaseService.getClases(filtro, page, limit)
+        var Clases = await ClaseService.getClases(filtro)
         // Return the Users list with the appropriate HTTP password Code and Message.
         return res.status(200).json({ status: 200, data: Clases, message: "Succesfully Clases por id prof Recieved" });
     } catch (e) {
@@ -38,7 +38,6 @@ exports.getClasesByidProfesor = async function (req, res) {  // esta
 }
 
 exports.getClases = async function (req, res) {  // esta 
-
     // Check the existence of the query parameters, If doesn't exists assign a default value
     try {
         var Clases = await ClaseService.getClases({})
@@ -51,7 +50,6 @@ exports.getClases = async function (req, res) {  // esta
 }
 
 exports.getClasesActivas = async function (req, res) {  // esta 
-
     // Check the existence of the query parameters, If doesn't exists assign a default value
     let filtro = { eliminado: false, estadoClase: "publica" }
     try {
