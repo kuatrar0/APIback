@@ -8,11 +8,11 @@ const ComentarioAAprobar = require('../models/ComentariosAAprobar.model');
 _this = this
 
 exports.createComentarioAAprobar = async function (ComentarioSolicitud) {
-    var newComentatarioAAprobar = new ComentarioAAprobar({
+    var nuevoComentatarioAAprobar = new ComentarioAAprobar({
         claseID: ComentarioSolicitud.claseID ,
         profesorID: ComentarioSolicitud.profesorID,
         alumnoID: ComentarioSolicitud.alumnoID,
-        nombreAlumnoID: ComentarioSolicitud.nombreAlumnoID,
+        nombreAlumno: ComentarioSolicitud.nombreAlumnoID,
         comentario:  ComentarioSolicitud.comentario,
         clasificacion:  ComentarioSolicitud.clasificacion,
         estado: "pendiente", //puede ser Pendiente, Aprobado o Rechazado
@@ -20,7 +20,7 @@ exports.createComentarioAAprobar = async function (ComentarioSolicitud) {
     })
     try {
         // Saving the User 
-        var savedComentarioAAprobar = await newComentarioAAprobar.save();
+        var savedComentarioAAprobar = await nuevoComentatarioAAprobar.save();
         var token = jwt.sign({
             id: savedComentarioAAprobar._id
         }, process.env.SECRET, {
@@ -103,7 +103,7 @@ exports.aprobarComentario= async function (ComentarioAprobado) {
 
 exports.getComentariosAAprobar = async function (query) {
     try{ 
-        var ComentariosAAprobar = await ComentarioAAprobar.paginate(query)
+        var ComentariosAAprobar = await ComentarioAAprobar.find(query)
         return ComentariosAAprobar.comentarios
     }
     catch(e){

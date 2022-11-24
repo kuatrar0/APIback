@@ -67,11 +67,9 @@ exports.getClasesActivas = async function (req, res) {  // esta
 exports.getComentariosDeClase = async function (req, res) {  // esta 
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
-    var page = req.query.page ? req.query.page : 1
-    var limit = req.query.limit ? req.query.limit : 10;
     let filtro = { idClase: req.body.idClase }
     try {
-        var Comentarios = await ClaseService.getComentarios(filtro, page, limit)
+        var Comentarios = await ClaseService.getComentarios(filtro)
         // Return the Users list with the appropriate HTTP password Code and Message.
         return res.status(200).json({ status: 200, data: Comentarios, message: "Succesfully comentarios Recieved" });
     } catch (e) {
@@ -83,9 +81,11 @@ exports.getComentariosDeClase = async function (req, res) {  // esta
 
 
 exports.getAlumnos = async function (req, res) {
-    let filtro = { idClase: req.body.idClase, baja :  false}
+    let filtro = { _id: req.body._id }
+    let filtroAlu = { baja: false} 
     try {
-        var Alumnos = await ClaseService.getAlumnos(filtro)
+        
+        var Alumnos = await ClaseService.getAlumnosSer(filtro, filtroAlu)
         // Return the Users list with the appropriate HTTP password Code and Message.
         return res.status(200).json({ status: 200, data: Alumnos, message: "Succesfully alumnos Recieved" });
     } catch (e) {
@@ -95,7 +95,7 @@ exports.getAlumnos = async function (req, res) {
 
 }
 
-
+// PREGUNTAR COMO HACER esTA A TOMI
 exports.bajaClase = async function (req, res) { // esta 
 
     // Id is necessary for the update
@@ -111,7 +111,7 @@ exports.bajaClase = async function (req, res) { // esta
         _id: req.body._idAlumno ? req.body._idAlumno : null,
     }
     try {
-        var bajaClase = await ClaseService.bajaClase(ClaseBajar, AlumnoBaja)
+        var bajaClase = await ClaseService.bajaClaseSer(ClaseBajar, AlumnoBaja)
         return res.status(200).json({status: 200, data: bajaClase, message: "Succesfully baja clase"})
     } catch (e) {
         return res.status(400).json({status: 400., message: e.message})
@@ -130,7 +130,7 @@ exports.eliminarClase = async function (req, res) { // esta
         _id: req.body._id ? req.body._id : null,
     }
     try {
-        var eliminada = await ClaseService.eliminarClase(Clase)
+        var eliminada = await ClaseService.eliminarClaseSer(Clase)
         return res.status(200).json({status: 200, data: eliminada, message: "Succesfully Clase Eliminada"})
     } catch (e) {
         return res.status(400).json({status: 400., message: e.message})
@@ -154,7 +154,7 @@ exports.modificarClase = async function (req, res) { // esta
 
     }
     try {
-        var modificarClase = await ClaseService.modificarClase(Clase)
+        var modificarClase = await ClaseService.modificarClaseSer(Clase)
         return res.status(200).json({status: 200, data: modificarClase, message: "Succesfully Updated clase"})
     } catch (e) {
         return res.status(400).json({status: 400., message: e.message})
@@ -173,7 +173,7 @@ exports.modificarEstado = async function (req, res) { // esta
         estadoClase: req.body.estadoClase ? req.body.estadoClase : null,
     }
     try {
-        var modificarEstado = await ClaseService.modificarEstado(Clase)
+        var modificarEstado = await ClaseService.modificarEstadoSer(Clase)
         return res.status(200).json({status: 200, data: modificarEstado, message: "Succesfully Updated estado de la clase"})
     } catch (e) {
         return res.status(400).json({status: 400., message: e.message})

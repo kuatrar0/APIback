@@ -124,7 +124,7 @@ exports.getSolicitudes = async function (query) {
    
     // Try Catch the awaited promise to handle the error 
     try{ 
-        var Solicitudes = await SolicitudesUnirse.paginate(query)
+        var Solicitudes = await SolicitudUnirse.paginate(query)
         return Solicitudes
     }
     catch(e){
