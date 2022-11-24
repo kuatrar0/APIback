@@ -146,7 +146,7 @@ exports.getClases = async function (query) {
     
     try {
         console.log("Query", query)
-        var Clases = await Clase.find(query)
+        var Clases = await Clase.paginate(query)
         // Return the Userd list that was retured by the mongoose promise
         return Clases;
 

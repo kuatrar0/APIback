@@ -79,7 +79,7 @@ exports.getComentariosDeClase = async function (req, res) {  // esta
 }
 
 
-
+// devuelve error si no existen alumnos
 exports.getAlumnos = async function (req, res) {
     let filtro = { _id: req.body._id }
     let filtroAlu = { baja: false} 
