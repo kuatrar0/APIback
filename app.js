@@ -79,13 +79,13 @@ app.listen(port,()=>{
 });
 
 
-
+/*
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
 app.use('/api/swagger/v1', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
-
+*/
 
 module.exports = app;

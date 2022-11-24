@@ -11,7 +11,7 @@ router.get('/test', function(req, res) {
     res.send('Llegaste a la ruta de users');
   });
 router.post('/registration', UserController.createUser)
-router.post('/login/', UserController.loginUser)
+router.post('/login', UserController.loginUser)
 router.get('/',Authorization, UserController.getUsers)
 router.post('/userByID', Authorization, UserController.getUsersByID)
 //router.post('/userByClaseID', Authorization, UserController.getUsersByClaseID)
