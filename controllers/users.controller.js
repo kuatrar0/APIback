@@ -71,7 +71,8 @@ exports.getUsersByMail = async function (req, res) {  // esta
 
 exports.createUser = async function (req, res) {  // NOOOO esta 
     // Req.Body contains the form submit values.
-    //console.log("llegue al controller",req.body)
+    console.log(req.body)
+    console.log("llegue al controller",req.body)
     if(req.body.esProfesor){
     var User = {
         email: req.body.email,
