@@ -96,6 +96,10 @@ router.get('/test', function(req, res) {
     res.send('Llegaste a la ruta de users');
   });
 
+
+
+
+  
   /**
  * @swagger
  * /users/registration:
@@ -117,7 +121,40 @@ router.get('/test', function(req, res) {
  * 
  */
 router.post('/registration', UserController.createUser)
+
+
+
+
+
+ /**
+ * @swagger
+ * /users/login:
+ *  post:
+ *      summary: inicia la sesion del usuario con el ingreso de un mail y una contraseña
+ *      tags: [User]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                        email:
+ *                          type: string
+ *                          description: email del usuario que quiere iniciar sesion
+ *                        password:
+ *                          type: string
+ *                          description: contraseña del usuario que quiere iniciar sesion
+ *      responses:
+ *          201:
+ *              description: Succesfully Created User
+ * 
+ */
 router.post('/login', UserController.loginUser)
+
+
+
+
 router.get('/',Authorization, UserController.getUsers)
 router.post('/userByID', Authorization, UserController.getUsersByID)
 //router.post('/userByClaseID', Authorization, UserController.getUsersByClaseID)
