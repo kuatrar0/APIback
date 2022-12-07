@@ -6,7 +6,6 @@ var Authorization = require('../auth/authorization');
 
 
 
-//create user
 /**
  * @swagger
  * components:
@@ -153,14 +152,144 @@ router.post('/registration', UserController.createUser)
 router.post('/login', UserController.loginUser)
 
 
+// AGREGAR AUTHORIZAITION COMO PARAMETROOOOOOOOO!!!!!
+/**
+ * @swagger
+ * /users/:
+ *  get:
+ *      summary: trae todos los usuarios registrados
+ *      tags: [User]
+ *      responses:
+ *          201:
+ *              description: Succesfully Users Recieved
+ * 
+ */
+router.get('/'/*,Authorization*/, UserController.getUsers) //AGREGAR AUTHORIZATION A TODOS
 
 
-router.get('/',Authorization, UserController.getUsers)
-router.post('/userByID', Authorization, UserController.getUsersByID)
+
+ /**
+ * @swagger
+ * /users/userByID:
+ *  post:
+ *      summary: trae un usuario por su ID
+ *      tags: [User]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                        _id:
+ *                          type: string
+ *                          description: ID del usuario que se quiere buscar
+ *                        
+ *      responses:
+ *          201:
+ *              description: Succesfully User Recieved
+ * 
+ */
+
+router.post('/userByID'/*, Authorization*/, UserController.getUsersByID)
+
+
+
 //router.post('/userByClaseID', Authorization, UserController.getUsersByClaseID)
+
+
+
+ /**
+ * @swagger
+ * /users/userByMail:
+ *  post:
+ *      summary: trae un usuario por su mail
+ *      tags: [User]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                        email:
+ *                          type: string
+ *                          description: mail del usuario que se quiere buscar
+ *                        
+ *      responses:
+ *          201:
+ *              description: Succesfully User Recieved
+ * 
+ */
+
+
 router.post('/userByMail', Authorization, UserController.getUsersByMail)
+
+
+
+ /**
+ * @swagger
+ * /users/actualizarUser:
+ *  put:
+ *      summary: actualiza datos del usuario designado
+ *      tags: [User]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                        _id:
+ *                          type: string
+ *                          description: ID del usuario que se quiere actualizar
+ *                        telefono:
+ *                          type: string
+ *                          description: nuevo telefono que se quiere ingresar
+ *                        
+ *      responses:
+ *          201:
+ *              description: Succesfully Updated User
+ * 
+ */
 router.put('/actualizarUser', Authorization, UserController.updateUser)
+
+
+/**
+ * @swagger
+ * /users/actualizarUserPass:
+ *  put:
+ *      summary: actualiza la password del usuario designado
+ *      tags: [User]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                        _id:
+ *                          type: string
+ *                          description: ID del usuario al que se quiere actualizar la contraseña
+ *                        password:
+ *                          type: string
+ *                          description: nueva contraseña del usuario
+ *                        respuesta:
+ *                          type: string
+ *                          description: respuesta a la pregunta de seguridad
+ *                        
+ *      responses:
+ *          201:
+ *              description: Succesfully Updated User
+ * 
+ */
 router.put('/actualizarUserPass', Authorization, UserController.updateUserPassword) 
+
+
+
+
+
+
 // preguntar como hacer get de pregunta del usuario para mostrar en el front
 
 
