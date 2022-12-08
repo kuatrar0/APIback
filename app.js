@@ -10,7 +10,7 @@ const swaggerSpec = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Node MongoDB API",
+      title: "TeachUp",
       version: "1.0.0"
     },
     servers: [
