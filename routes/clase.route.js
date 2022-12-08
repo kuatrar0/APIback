@@ -66,7 +66,8 @@ var Authorization = require('../auth/authorization');
  *                              description: comentario del usuario
  *                          clasificacionComent:
  *                              type: number
- *                              description: clasificacion dada por el usuario
+ *                              description: materia que se enseñara en la clase
+ *                          
  *                                                          
  *                                                              
  *          example:
@@ -94,14 +95,128 @@ var Authorization = require('../auth/authorization');
 
 
 
-
-
+ /**
+ * @swagger
+ * /clases/creacionClase:
+ *  post:
+ *      summary: inicia la sesion del usuario con el ingreso de un mail y una contraseña
+ *      tags: [Clase]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                        idProfesor:
+ *                          type: string
+ *                          description: id del profesor que creara la clase
+ *                        profesor:
+ *                          type: string
+ *                          description: nombre completo del profesor 
+ *                        materia:
+ *                          type: string
+ *                          description: materia que 
+ *                        duracion: 
+ *                          type: number
+ *                          description: duaracion en horas de la clase
+ *                        frequencia:
+ *                          type: string
+ *                          description: frequencia con la que se dara la clase 
+ *                        costo:
+ *                          type: number
+ *                          description: costo de la clase
+ *                        descripcion: 
+ *                          type: string 
+ *                          description: descripcion de la clase
+ *      responses:
+ *          201:
+ *              description: Succesfully Created Clase
+ * 
+ */
 
 router.post('/creacionClase', ClaseController.createClase)
+
+
+
+ /**
+ * @swagger
+ * /clases/getClasesPID:
+ *  post:
+ *      summary: inicia la sesion del usuario con el ingreso de un mail y una contraseña
+ *      tags: [Clase]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                        idProfesor:
+ *                          type: string
+ *                          description: id del profesor para buscar sus clases
+ *                        
+ *      responses:
+ *          201:
+ *              description: Succesfully Clases Recieved
+ * 
+ */
+
+
 router.post('/getClasesPID', ClaseController.getClasesByidProfesor)
+
+
+/**
+ * @swagger
+ * /clases/getClases:
+ *  get:
+ *      summary: trae todos las clases existentes
+ *      tags: [Clase]
+ *      responses:
+ *          201:
+ *              description: Succesfully Clases Recieved
+ * 
+ */
 router.get('/getClases', ClaseController.getClases)
+
+/**
+ * @swagger
+ * /clases/getClases:
+ *  get:
+ *      summary: trae todos las clases existentes que no esten ocultas o eliminadas
+ *      tags: [Clase]
+ *      responses:
+ *          201:
+ *              description: Succesfully Clases Recieved
+ * 
+ */
 router.get('/getClasesActivas', ClaseController.getClasesActivas)
+
+/**
+ * @swagger
+ * /clases/getClases:
+ *  post:
+ *      summary: trae todos los comentarios de una clase existente
+ *      tags: [Clase]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                        idClase:
+ *                          type: string
+ *                          description: ID de la clase que se quiere buscar
+ *                        
+ *      responses:
+ *          201:
+ *              description: Succesfully Comentarios Recieved
+ * 
+ */
 router.post('/getComentarios', ClaseController.getComentariosDeClase)
+
+
 router.post('/getAlumnos', ClaseController.getAlumnos)
 router.post('/bajaClase', ClaseController.bajaClase)
 router.post('/eliminarClase', ClaseController.eliminarClase)
