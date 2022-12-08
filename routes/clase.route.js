@@ -99,7 +99,7 @@ var Authorization = require('../auth/authorization');
  * @swagger
  * /clases/creacionClase:
  *  post:
- *      summary: inicia la sesion del usuario con el ingreso de un mail y una contraseña
+ *      summary: crea una clase nueva.
  *      tags: [Clase]
  *      requestBody:
  *          required: true
@@ -143,7 +143,7 @@ router.post('/creacionClase', ClaseController.createClase)
  * @swagger
  * /clases/getClasesPID:
  *  post:
- *      summary: inicia la sesion del usuario con el ingreso de un mail y una contraseña
+ *      summary: trae las clases que un profesor tiene registradas mediante un ID
  *      tags: [Clase]
  *      requestBody:
  *          required: true
@@ -181,7 +181,7 @@ router.get('/getClases', ClaseController.getClases)
 
 /**
  * @swagger
- * /clases/getClases:
+ * /clases/getClasesActivas:
  *  get:
  *      summary: trae todos las clases existentes que no esten ocultas o eliminadas
  *      tags: [Clase]
@@ -194,7 +194,7 @@ router.get('/getClasesActivas', ClaseController.getClasesActivas)
 
 /**
  * @swagger
- * /clases/getClases:
+ * /clases/getComentarios:
  *  post:
  *      summary: trae todos los comentarios de una clase existente
  *      tags: [Clase]
@@ -216,11 +216,136 @@ router.get('/getClasesActivas', ClaseController.getClasesActivas)
  */
 router.post('/getComentarios', ClaseController.getComentariosDeClase)
 
-
+/**
+ * @swagger
+ * /clases/getAlumnos:
+ *  post:
+ *      summary: trae todos los alumnos de una clase existente
+ *      tags: [Clase]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                        _id:
+ *                          type: string
+ *                          description: ID de la clase que se quiere buscar
+ *                        
+ *      responses:
+ *          201:
+ *              description: Succesfully Alumnos Recieved
+ * 
+ */
 router.post('/getAlumnos', ClaseController.getAlumnos)
+
+/**
+ * @swagger
+ * /clases/bajaClase:
+ *  post:
+ *      summary: se le da de baja de una clase al usuario que lo desee
+ *      tags: [Clase]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                        idClase:
+ *                          type: string
+ *                          description: ID de la clase que se quiere bajar
+ *                        idAlu:
+ *                          type: string
+ *                          description: id del usuario que quiere bajarse
+ *      responses:
+ *          201:
+ *              description: Succesfully Alumnos Recieved
+ * 
+ */
 router.post('/bajaClase', ClaseController.bajaClase)
+
+
+
+/**
+ * @swagger
+ * /clases/eliminarClase:
+ *  post:
+ *      summary: elimina la clase que el profesor desee
+ *      tags: [Clase]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                        _id:
+ *                          type: string
+ *                          description: ID de la clase que se quiere eliminar
+ *      responses:
+ *          201:
+ *              description: Succesfully Clase Deleted
+ */
 router.post('/eliminarClase', ClaseController.eliminarClase)
+
+
+
+/**
+ * @swagger
+ * /clases/modificarClase:
+ *  put:
+ *      summary: modifica la duracion, frecuencia y costo de una clase
+ *      tags: [Clase]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                        _id:
+ *                          type: string
+ *                          description: ID de la clase que se quiere eliminar
+ *                        duracion: 
+ *                          type: number
+ *                          description: nueva duaracion en horas de la clase
+ *                        frequencia:
+ *                          type: string
+ *                          description: nueva frequencia con la que se dara la clase 
+ *                        costo:
+ *                          type: number
+ *                          description: nuevo costo de la clase
+ *      responses:
+ *          201:
+ *              description: Succesfully Clase Deleted
+ */
 router.put('/modificarClase', ClaseController.modificarClase)
+
+/**
+ * @swagger
+ * /clases/modificarEstado:
+ *  put:
+ *      summary: cambia el estado de una clase a publica u oculta
+ *      tags: [Clase]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                        _id:
+ *                          type: string
+ *                          description: ID de la clase que se quiere eliminar
+ *                        estadoClase: 
+ *                          type: string
+ *                          description: nuevo estado de la clase. puede ser oculta o publico
+ *      responses:
+ *          201:
+ *              description: Succesfully Estado de Clase Changed
+ */
 router.put('/modificarEstado', ClaseController.modificarEstado)
 
 

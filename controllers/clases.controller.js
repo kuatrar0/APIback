@@ -131,7 +131,7 @@ exports.eliminarClase = async function (req, res) { // esta
     }
     try {
         var eliminada = await ClaseService.eliminarClaseSer(Clase)
-        return res.status(200).json({status: 200, data: eliminada, message: "Succesfully Clase Eliminada"})
+        return res.status(200).json({status: 200, data: eliminada, message: "Succesfully Clase Deleted"})
     } catch (e) {
         return res.status(400).json({status: 400., message: e.message})
     }
