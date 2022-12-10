@@ -283,7 +283,7 @@ router.put('/actualizarUser', Authorization, UserController.updateUser)
  *              description: Succesfully Updated User
  * 
  */
-router.put('/actualizarUserPass',/* Authorization,*/ UserController.updateUserPassword) 
+router.put('/actualizarUserPass'/*, Authorization*/, UserController.updateUserPassword) 
 
 
 

@@ -111,7 +111,7 @@ exports.updateUser = async function (user) {
 }
 
 exports.updateUserPass = async function (user, respuesta) {
-    var id = { name: user._id }
+    var id = { _id: user._id }
     try {
         //Find the old User Object by the Id
         var oldUser = await User.findOne(id);
@@ -123,7 +123,7 @@ exports.updateUserPass = async function (user, respuesta) {
         return false;
     }
     
-    if (respuesta.toLowerCase() == oldUser.respuesta) {
+    if (respuesta.respuesta.toLowerCase() == oldUser.respuesta) {
 
         //Edit the User Object
         var hashedPassword = bcrypt.hashSync(user.password, 8);
@@ -141,7 +141,7 @@ exports.updateUserPass = async function (user, respuesta) {
 }
 
 
-
+/*
 exports.getPreguntaSeg = async function (email) {
     var busqueda = await User.findOne({
         email: email
@@ -149,7 +149,7 @@ exports.getPreguntaSeg = async function (email) {
     return busqueda.preguntaSeg
 
 }
-
+*/
 
 
 exports.deleteUser = async function (id) {
