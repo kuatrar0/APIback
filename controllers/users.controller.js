@@ -125,7 +125,7 @@ exports.createUser = async function (req, res) {  // NOOOO esta
 exports.updateUser = async function (req, res) { // esta 
 
     // Id is necessary for the update
-    if (!req.body._id) {
+   if (!req.body._id) {
         return res.status(400).json({ status: 400., message: "no hay id!!!!! ALGO MALO PASO" })
     }
     var User = {

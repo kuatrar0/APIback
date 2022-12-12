@@ -252,7 +252,7 @@ router.post('/userByMail', UserController.getUsersByMail)
  *              description: Succesfully Updated User
  * 
  */
-router.put('/actualizarUser', Authorization, UserController.updateUser)
+router.put('/actualizarUser'/*, Authorization*/, UserController.updateUser)
 
 
 /**

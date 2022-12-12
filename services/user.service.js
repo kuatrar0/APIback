@@ -36,7 +36,7 @@ exports.createUser = async function (user) {
             email: user.email,
             password: hashedPassword,
             nombre: user.nombre,
-            apellido: user.apellido,
+            
             telefono: user.telefono,
             ciudad: user.ciudad,
             preguntaSeg: user.preguntaSeg,
@@ -55,7 +55,7 @@ exports.createUser = async function (user) {
             email: user.email,
             password: hashedPassword,
             nombre: user.nombre,
-            apellido: user.apellido,
+            
             telefono: user.telefono,
             ciudad: user.ciudad,
             preguntaSeg: user.preguntaSeg,
@@ -88,7 +88,7 @@ exports.createUser = async function (user) {
 
 exports.updateUser = async function (user) {
 
-    var id = user._id 
+    var id ={_id: user._id }
 
     try {
         //Find the old User Object by the Id
