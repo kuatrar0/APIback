@@ -22,7 +22,7 @@ var ClaseSchema = new mongoose.Schema({  // sacar VAR
         idAlu : String,
         nombreAlu: String,
         textoComentario: String,
-        calsificacionComent: Number,
+        clasificacionComent: Number,
     }]
 
 })
