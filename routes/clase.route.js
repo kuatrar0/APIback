@@ -14,59 +14,62 @@ var Authorization = require('../auth/authorization');
  *                  type: string
  *                  description: id del profesor a cargo de la materia
  *              profesor: 
- *                      type: string
- *                      description: nombre del profesor a cargo de la materia
+ *                  type: string
+ *                  description: nombre del profesor a cargo de la materia
  *              materia:
- *                      type: string
- *                      description: materia que se enseñara en la clase
+ *                  type: string
+ *                  description: materia que se enseñara en la clase
  *              duracion: 
- *                      type: number
- *                      description: duaracion en horas de la clase
+ *                  type: number
+ *                  description: duaracion en horas de la clase
  *              frequencia:
- *                      type: string
- *                      description: frequencia con la que se dara la clase 
+ *                  type: string
+ *                  description: frequencia con la que se dara la clase 
  *              costo:
- *                      type: number
- *                      description: costo de la clase
+ *                  type: number
+ *                  description: costo de la clase
  *              clasificacion:
- *                      type: number 
- *                      description: clasificacion que tiene la clase
+ *                  type: number 
+ *                  description: clasificacion que tiene la clase
  *              estadoClase:
- *                      type: string 
- *                      description: estado en el que la clase se encuentra. puede ser publica u oculta
+ *                  type: string 
+ *                  description: estado en el que la clase se encuentra. puede ser publica u oculta
  *              eliminado:
- *                      type: boolean 
- *                      description: flag que sirve para saber si la clase fue eliminada
+ *                  type: boolean 
+ *                  description: flag que sirve para saber si la clase fue eliminada
  *              descripcion: 
- *                      type: string 
- *                      description: descripcion de la clase
+ *                  type: string 
+ *                  description: descripcion de la clase
+ *              tipo: 
+ *                  type: string
+ *                  descripcion: tipo de clase que sera    
  *              alumnos: 
- *                      type: object  
- *                      properties:
- *                          idAlu:
- *                              type: string
- *                              description: id del usuario que comento
- *                          nombreAlu:
- *                              type: string
- *                              description: nombre del usuario en la clase
- *                          baja:
- *                              type: boolean
- *                              description: flag que estara en true si un usuario se da de baja. caso contrario sera false
+ *                  type: object  
+ *                  properties:
+ *                      idAlu:
+ *                          type: string
+ *                          description: id del usuario que comento
+ *                      nombreAlu:
+ *                          type: string
+ *                          description: nombre del usuario en la clase
+ *                      baja:
+ *                          type: boolean
+ *                          description: flag que estara en true si un usuario se da de baja. caso contrario sera false
  *              comentarios: 
- *                      type: object  
- *                      properties:
- *                          idAlu:
- *                              type: string
- *                              description: id del usuario que comento
- *                          nombreAlu:
- *                              type: string
- *                              description: nombre del usuario que comento
- *                          textoComentario:
- *                              type: string
- *                              description: comentario del usuario
- *                          clasificacionComent:
- *                              type: number
- *                              description: materia que se enseñara en la clase
+ *                  type: object  
+ *                  properties:
+ *                      idAlu:
+ *                          type: string
+ *                          description: id del usuario que comento
+ *                      nombreAlu:
+ *                          type: string
+ *                          description: nombre del usuario que comento
+ *                      textoComentario:
+ *                          type: string
+ *                          description: comentario del usuario
+ *                      clasificacionComent:
+ *                          type: number
+ *                          description: materia que se enseñara en la clase
  *                          
  *                                                          
  *                                                              
@@ -220,7 +223,7 @@ router.post('/getComentarios', ClaseController.getComentariosDeClase)
  * @swagger
  * /clases/getAlumnos:
  *  post:
- *      summary: trae todos los alumnos de una clase existente
+ *      summary: trae todos los alumnos de una clase existente que esten cursando
  *      tags: [Clase]
  *      requestBody:
  *          required: true
@@ -238,13 +241,13 @@ router.post('/getComentarios', ClaseController.getComentariosDeClase)
  *              description: Succesfully Alumnos Recieved
  * 
  */
-router.post('/getAlumnos', ClaseController.getAlumnos)
+router.post('/getAlumnosCursando', ClaseController.getAlumnosCursando)
 
 /**
  * @swagger
  * /clases/bajaClase:
  *  post:
- *      summary: se le da de baja de una clase al usuario que lo desee
+ *      summary: se le otorgara la baja por cancelamiento o finalizacion de cursada a un alumno
  *      tags: [Clase]
  *      requestBody:
  *          required: true
@@ -256,6 +259,9 @@ router.post('/getAlumnos', ClaseController.getAlumnos)
  *                        idClase:
  *                          type: string
  *                          description: ID de la clase que se quiere bajar
+ *                        estadoAlu:
+ *                          type: string
+ *                          description: el nuevo estado del alumno en la clase. puede ser "cancelado" o "finalizado"
  *                        idAlu:
  *                          type: string
  *                          description: id del usuario que quiere bajarse

@@ -16,6 +16,7 @@ exports.createClase = async function (clase) {
         frecuencia: clase.frecuencia,
         costo: clase.costo,
         descripcion: clase.descripcion,
+        tipo: clase.tipo,
         clasificacion: 0,
         estadoClase: "publica",
         eliminado: false,
@@ -60,7 +61,6 @@ exports.getAlumnosSer = async function (query, queryAlu) {
 
         }
         else{
-            console.log("NO VACIA")
             var Alumnos= Clases.alumnos.paginate(queryAlu)
             console.log(Alumnos)
             return Clases
@@ -94,7 +94,7 @@ exports.modificarClaseSer = async function (clase) {
         var savedClase = await oldClase.save()
         return savedClase;
     } catch (e) {
-        throw Error("And Error occured while updating the Clase");
+        throw Error("An Error occured while updating the Clase");
     }
 }
 
@@ -136,7 +136,7 @@ exports.eliminarClaseSer = async function (clase) {
         var savedClase = await oldClase.save()
         return savedClase;
     } catch (e) {
-        throw Error("And Error occured while updating the Clase");
+        throw Error("An Error occured while updating the Clase");
     }
 }
 
@@ -156,6 +156,7 @@ exports.getClases = async function (query) {
         throw Error('Error while getting Clases');
     }
 }
+
 exports.modificarEstadoSer = async function (clase) {
     var id = clase._id
 
@@ -215,7 +216,7 @@ exports.bajaClaseSer = async function (ClaseBajar, AlumnoBaja) {
         return false;
     }
     try {
-        usuarioABajar.clasesAnotado.find(idClase).baja = true  // preguntar aca que hacer!!!!!!!!!!!!!!!!!!!!!!!
+        usuarioABajar.clasesAnotado.find(idClase).estado = AlumnoBaja.estadoAlu 
         claseBajarse.alumnos.find(idAlumno).baja = true
         var savedSolicitud = await solRechaz.save()
         return savedSolicitud;

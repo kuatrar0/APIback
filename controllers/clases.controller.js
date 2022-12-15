@@ -10,7 +10,8 @@ exports.createClase = async function (req, res) {
         duracion: req.body.duracion,
         frecuencia: req.body.frecuencia,
         costo: req.body.costo,
-        descripcion: req.body.descripcion
+        descripcion: req.body.descripcion,
+        tipo:req.body.tipo
     }
     try {
         // Calling the Service function with the new object from the Request Body
@@ -80,9 +81,9 @@ exports.getComentariosDeClase = async function (req, res) {  // esta
 
 
 // devuelve error si no existen alumnos
-exports.getAlumnos = async function (req, res) {
+exports.getAlumnosCursando = async function (req, res) {
     let filtro = { _id: req.body._id }
-    let filtroAlu = { baja: false} 
+    let filtroAlu = { estado: "cursando"} 
     try {
         
         var Alumnos = await ClaseService.getAlumnosSer(filtro, filtroAlu)
@@ -107,8 +108,8 @@ exports.bajaClase = async function (req, res) { // esta
         _id: req.body._idClase ? req.body._idClase : null,
     }
     var AlumnoBaja = {
-       
-        _id: req.body._idAlumno ? req.body._idAlumno : null,
+        estadoAlu: req.body.estado ? req.body._idAlumno : null,
+        _id: req.body._idAlumno ? req.body._idAlumno : null
     }
     try {
         var bajaClase = await ClaseService.bajaClaseSer(ClaseBajar, AlumnoBaja)

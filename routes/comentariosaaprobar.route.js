@@ -129,7 +129,7 @@ router.post('/aprobarComentario', ComentarioAAprobarController.aprobarComentario
  * @swagger
  * /comentariosaaprobar/rechazarComentario:
  *  post:
- *      summary: aprueba el comentario y lo agrega en la clase
+ *      summary: rechaza el comentario y realiza una baja logica
  *      tags: [Comentario A Aprobar]
  *      requestBody:
  *          required: true
@@ -158,7 +158,7 @@ router.post('/rechazarComentario', ComentarioAAprobarController.rechazarComentar
  * @swagger
  * /comentariosaaprobar/getComentariosAAprobarPID:
  *  post:
- *      summary: aprueba el comentario y lo agrega en la clase
+ *      summary: trae los comentarios pendiendtes de un profesor mediante un ID
  *      tags: [Comentario A Aprobar]
  *      requestBody:
  *          required: true
@@ -166,9 +166,9 @@ router.post('/rechazarComentario', ComentarioAAprobarController.rechazarComentar
  *              application/json:
  *                  schema:
  *                      type: object
- *                          profesorID: 
- *                              type: string
- *                              description: ID del profesor que aprobara el comentario
+ *                      profesorID: 
+ *                          type: string
+ *                          description: ID del profesor del que se deseen ver los comentarios pendientes
  *      responses:
  *          201:
  *              description: Succesfully Comentarios A Aprobar Recieved

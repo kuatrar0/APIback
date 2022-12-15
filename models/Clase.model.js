@@ -13,6 +13,7 @@ var ClaseSchema = new mongoose.Schema({  // sacar VAR
     estadoClase: { type:String, required: true},//publica - oculta
     eliminado: { type:Boolean, required: false},
     descripcion: { type:String, required: true},
+    tipo: { type:String, required: true},
     alumnos:[{
         idAlu : String,
         nombreAlu: String,

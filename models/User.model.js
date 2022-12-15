@@ -12,15 +12,14 @@ var UserSchema = new mongoose.Schema({
     respuesta:{ type:String, required: true},
     fechaNac:{ type:String, required: true},
     esProfesor: { type:Boolean, required: true},
-    titulo: String,
-    exp: String,
-    ultimoAlcanzado: String,
-    estadoEstudio: String,
+        titulo: String,
+        exp: String,
+        ultimoAlcanzado: String,
+        estadoEstudio: String,
     clasesAnotado:[{
         idclase : String,
         idProfesor: String,
-        estadoDeClase: String,
-        baja: Boolean
+        estado: String // puede ser cancelado, cursando o terminado
     }],
 })
 

@@ -31,7 +31,6 @@ exports.createUser = async function (user) {
     var hashedPassword = bcrypt.hashSync(user.password, 8);
     console.log(user)
     if (user.esProfesor === true) {
-        console.log("llegue a profesor")
         var newUser = new User({
             email: user.email,
             password: hashedPassword,
@@ -49,7 +48,6 @@ exports.createUser = async function (user) {
         })
     }
     else {
-        console.log("llegue a alumno")
         var newUser = new User({
             
             email: user.email,

@@ -24,7 +24,7 @@ exports.createSolicitud = async function (req, res) {
 exports.aceptarSolicitud = async function (req, res) { // esta 
     // Id is necessary for the update
     if (!req.body) {
-        return res.status(400).json({status: 400., message: "no hay ids!!!!! ALGO MALO PASO"})
+        return res.status(400).json({status: 400., message: "Error"})
     }
     var solicitud = {
        
@@ -33,7 +33,7 @@ exports.aceptarSolicitud = async function (req, res) { // esta
    
     try {
         var solicitudAceptada = await SolicitudUnirseService.aceptarSolicitud(solicitud)
-        return res.status(200).json({status: 200, data: solicitudAceptada, message: "Succesfully Updated User"})
+        return res.status(200).json({status: 200, data: solicitudAceptada, message: "Succesfully Accepted Solicitud"})
     } catch (e) {
         return res.status(400).json({status: 400., message: e.message})
     }
@@ -43,7 +43,7 @@ exports.aceptarSolicitud = async function (req, res) { // esta
 exports.rechazarSolicitud = async function (req, res) { // esta 
     // Id is necessary for the update
     if (!req.body) {
-        return res.status(400).json({status: 400., message: "no hay ids!!!!! ALGO MALO PASO"})
+        return res.status(400).json({status: 400., message: "Error"})
     }
     var solicitud = {
        
@@ -52,7 +52,7 @@ exports.rechazarSolicitud = async function (req, res) { // esta
    
     try {
         var solicitudRechazada = await SolicitudUnirseService.rechazarSolicitud(solicitud)
-        return res.status(200).json({status: 200, data: solicitudRechazada, message: "Succesfully Updated User"})
+        return res.status(200).json({status: 200, data: solicitudRechazada, message: "Succesfully Refused Solicitud"})
     } catch (e) {
         return res.status(400).json({status: 400., message: e.message})
     }
@@ -65,7 +65,7 @@ exports.getSolicitudesByClaseID = async function (req, res) {  // esta
     try {
         var Solicitudes = await SolicitudUnirseService.getSolicitudes(filtro)
         // Return the Users list with the appropriate HTTP password Code and Message.
-        return res.status(200).json({ status: 200, data: Solicitudes, message: "Succesfully Clases Recieved" });
+        return res.status(200).json({ status: 200, data: Solicitudes, message: "Succesfully Solicitudes Recieved" });
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         return res.status(404).json({ status: 404, message: e.message });
