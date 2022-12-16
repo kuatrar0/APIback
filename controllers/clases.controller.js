@@ -174,36 +174,35 @@ exports.modificarEstado = async function (req, res) { // esta
 exports.filtroClases = async function (req, res) {  // esta 
     // Check the existence of the query parameters, If doesn't exists assign a default value
     console.log(req.body)
-    if (req.body.materia == null) {
+    if (req.body.materia == "undefined") {
         var filtroMateria = { materia: { $ne: null } }
     }
     else {
         var filtroMateria = { materia: req.body.materia }
     }
 
-    if (req.body.tipo == null) {
+    if (req.body.tipo == "undefined") {
         var filtroTipo = { tipo: { $ne: null } }
     }
     else {
         var filtroTipo = { tipo: req.body.tipo  }
-
     }
 
-    if (req.body.frecuencia == null) {
+    if (req.body.frecuencia == "undefined") {
         var filtroFrecuencia = { frecuencia : { $ne: null } }
     }
     else {
         var filtroFrecuencia = { frecuencia: req.body.frecuencia }
     }
 
-    if (req.body.precio == null) {
+    if (req.body.precio == "undefined") {
         var filtroPrecio = { precio: { $ne: null } }
     }
     else {
         var filtroPrecio = { $and: [{ precio: { $gte: req.body.precioMax } }, { precio: { $lte: req.body.precioMin } }] }
     }
 
-    if (req.body.clasificacion == null) {
+    if (req.body.clasificacion == "undefined") {
         var filtroClasificacion = { clasificacion: { $ne: null } }
     }
     else {
