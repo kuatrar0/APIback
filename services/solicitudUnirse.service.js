@@ -98,7 +98,9 @@ exports.aceptarSolicitud = async function (solicitud) {
 
 
     }])
+    console.log(controlSol.estado)
     controlSol.estado = "aprobado"
+    console.log(controlSol.estado)
     try {
         var controlUser = await usuarioAUnir.save()
         var controlClase = await claseAUnir.save()
