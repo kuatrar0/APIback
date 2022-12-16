@@ -34,7 +34,7 @@ exports.createUser = async function (user) {
             email: user.email,
             password: hashedPassword,
             nombre: user.nombre,
-            
+
             telefono: user.telefono,
             ciudad: user.ciudad,
             preguntaSeg: user.preguntaSeg,
@@ -48,11 +48,11 @@ exports.createUser = async function (user) {
     }
     else {
         var newUser = new User({
-            
+
             email: user.email,
             password: hashedPassword,
             nombre: user.nombre,
-            
+
             telefono: user.telefono,
             ciudad: user.ciudad,
             preguntaSeg: user.preguntaSeg,
@@ -85,7 +85,7 @@ exports.createUser = async function (user) {
 
 exports.updateUser = async function (user) {
 
-    var id ={_id: user._id }
+    var id = { _id: user._id }
 
     try {
         //Find the old User Object by the Id
@@ -119,7 +119,7 @@ exports.updateUserPass = async function (user, respuesta) {
     if (!oldUser) {
         return false;
     }
-    
+
     if (respuesta.respuesta.toLowerCase() == oldUser.respuesta) {
 
         //Edit the User Object
@@ -137,16 +137,6 @@ exports.updateUserPass = async function (user, respuesta) {
     }
 }
 
-
-/*
-exports.getPreguntaSeg = async function (email) {
-    var busqueda = await User.findOne({
-        email: email
-    });
-    return busqueda.preguntaSeg
-
-}
-*/
 
 
 exports.deleteUser = async function (id) {
@@ -187,7 +177,32 @@ exports.loginUser = async function (user) {
     } catch (e) {
         // return a Error message describing the reason     
         throw Error("Error while Login User")
+    }
+
+
 }
 
 
+exports.getAlumnoClases = async function (query) {
+
+    // Options setup for the mongoose paginate
+    // Try Catch the awaited promise to handle the error 
+    try {
+        var Users = await User.findOne(query)
+        let arrayRespuesta = []
+        console.log(Users.clasesAnotado)
+        Users.clasesAnotado.forEach(function (clase) {
+            if (clase.estado == "cursando" || clase.estado == "terminado" ) {
+                arrayRespuesta= arrayRespuesta.concat(clase)
+            }
+        })
+
+        // Return the Userd list that was retured by the mongoose promise
+        return arrayRespuesta;
+
+    } catch (e) {
+        // return a Error message describing the reason 
+        console.log("error services", e)
+        throw Error('Error while Paginating Users');
+    }
 }
