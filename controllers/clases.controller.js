@@ -200,14 +200,14 @@ exports.filtroClases = async function (req, res) {  // esta
         filtroPrecio = { precio: { $ne: null } }
     }
     else {
-        filtroPrecio = { $and: ({ precio: { $gte: req.body.precioMax } }, { precio: { $lte: req.body.precioMin } }) }
+        filtroPrecio = { $and: [{ precio: { $gte: req.body.precioMax } }, { precio: { $lte: req.body.precioMin } }] }
     }
 
     if (req.body.clasificacion == null) {
         filtroClasificacion = { clasificacion: { $ne: null } }
     }
     else {
-        filtroClasificacion = { $and: ({ clasificacion: { $gte: req.body.clasificacionMax } }, { clasificacion: { $lte: req.body.clasificacionMin } }) }
+        filtroClasificacion = {$and: [{ clasificacion: { $gte: req.body.clasificacionMax } }, { clasificacion: { $lte: req.body.clasificacionMin } }] }
     }
 
     let filtroFinal = { filtroMateria, filtroTipo, filtroFrecuencia, filtroPrecio, filtroClasificacion }
