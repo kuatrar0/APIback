@@ -89,3 +89,16 @@ exports.getSolicitudesByAlumnoID = async function (req, res) {  // esta
         return res.status(404).json({ status: 404, message: e.message });
     }
 }
+
+exports.getSolicitudesPendientesByAlumnoID = async function (req, res) {  // esta 
+    // Check the existence of the query parameters, If doesn't exists assign a default value
+    let filtro = { alumnoID: req.body.alumnoID, estado: "pendiente"}
+    try {
+        var Solicitudes = await SolicitudUnirseService.getSolicitudes(filtro)
+        // Return the Users list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({ status: 200, data: Solicitudes, message: "Succesfully Solicitudes Recieved" });
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(404).json({ status: 404, message: e.message });
+    }
+}

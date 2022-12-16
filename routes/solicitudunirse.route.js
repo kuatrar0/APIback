@@ -148,6 +148,11 @@ router.post('/rechazarSolicitud',SolicitudUnirseController.rechazarSolicitud)
 router.post('/getSolicitudesPID',SolicitudUnirseController.getSolicitudesByClaseID)
 
 
+
+router.post('/getSolicitudesPendientesPID',SolicitudUnirseController.getSolicitudesPendientesByAlumnoID)
+
+
+
 module.exports = router;
 
 
