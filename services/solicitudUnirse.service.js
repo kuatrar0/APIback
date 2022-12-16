@@ -51,11 +51,12 @@ exports.createSolicitudUnirse = async function (solicitudUnirse) {
 
 exports.aceptarSolicitud = async function (solicitud) {
     try {
+       
         //Find the old User Object by the Id
-        var controlSol = await SolicitudUnirse.find(solicitud);
-
-
-    } catch (e) {
+        var controlSol = await SolicitudUnirse.findOne(solicitud);
+        
+    }
+    catch (e) {
         throw Error("Error occured while Finding the Solicitud")
     }
     if (!controlSol) {
@@ -63,38 +64,42 @@ exports.aceptarSolicitud = async function (solicitud) {
     }
     try {
         //Find the old User Object by the Id
-        var usuarioAUnir = await User.find(controlSol.alumnoID);
+        var usuarioAUnir = await User.findOne({_id:controlSol.alumnoID});
+        
     } catch (e) {
-        throw Error("Error occured while Finding the Solicitud")
+        throw Error(e)
     }
     // If no old User Object exists return false
     if (!usuarioAUnir) {
+    
         return false;
     }
     try {
         //Find the old User Object by the Id
-        var claseAUnir = await Clase.find(controlSol.claseID);
+        var claseAUnir = await Clase.findById(controlSol.claseID);
     } catch (e) {
         throw Error("Error occured while Finding the Clase")
     }
     // If no old User Object exists return false
     if (!claseAUnir || claseAUnir.eliminado == true || claseAUnir.estadoClase == "oculta") {
+        console.log("clase nula")
         return false;
     }
-    console.log(claseAUnir)
+    
+
     claseAUnir.alumnos = claseAUnir.alumnos.concat([{
         idAlu: usuarioAUnir._id,
         nombreAlu: usuarioAUnir.nombre,
-        baja: false,
-
+        baja: false
     }])
+
     usuarioAUnir.clasesAnotado = usuarioAUnir.clasesAnotado.concat([{
         idclase: claseAUnir._id,
         idProfesor: claseAUnir._idProfesor,
         estado: "cursando",
         profesor: claseAUnir.profesor,
         materia: claseAUnir.materia,
-        clasificacion: 0,
+        clasificacion: 0
 
 
     }])
@@ -104,14 +109,10 @@ exports.aceptarSolicitud = async function (solicitud) {
     try {
         var controlUser = await usuarioAUnir.save()
         var controlClase = await claseAUnir.save()
-    } catch (e) {
-        throw Error("And Error occured while updating the UserSolicitud");
-    }
-    try {
-
         var savedSolicitud = await controlSol.save()
         return savedSolicitud;
-    } catch (e) {
+    } 
+    catch (e) {
         throw Error("And Error occured while updating the Solicitud");
     }
 }
