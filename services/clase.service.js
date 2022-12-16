@@ -229,7 +229,6 @@ exports.bajaClaseSer = async function (ClaseBajar, AlumnoBaja) {
         if (flag == true) {
             usuarioABajar.clasesAnotado[ubicacion] = AlumnoBaja.estadoAlu
         }
-        claseBajarse.alumnos.find(idAlumno).baja = true
         flag = false
         cont = 0
         ubicacion = 0
