@@ -3,6 +3,7 @@
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 const Clase = require('../models/Clase.model');
+const User = require('../models/User.model');
 
 // Saving the context of this module inside the _the variable
 _this = this
@@ -237,7 +238,7 @@ exports.bajaClaseSer = async function (ClaseBajar, AlumnoBaja) {
         cont = 0
         ubicacion = 0
         claseBajarse.alumnos.forEach(function (alumno) {
-            if (alumno.idAlu == Alumno._id) {
+            if (alumno.idAlu == AlumnoBaja._id) {
                 flag = true
                 ubicacion = cont
             }
