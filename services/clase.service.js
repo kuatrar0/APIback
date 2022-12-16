@@ -55,15 +55,14 @@ exports.getComentarios = async function (query) {
 //PEDIR AYUDA ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 exports.getAlumnosSer = async function (query) {
     try {
-        var Clases = await Clase.find(query)
-        console.log(Clases.alumnos)
-        if (Clases.alumnos.length() < 1) {
+        var ClaseBuscada = await Clase.findOne(query)
+        console.log(ClaseBuscada.alumnos)
+        if (ClaseBuscada.alumnos.length < 1) {
             throw Error("¡NO HAY ALUMNOS EN TU CLASE!")
-
         }
         else {
             let arrayRespuesta=[]
-            Clases.alumnos.forEach(function (alumno) {
+            ClaseBuscada.alumnos.forEach(function (alumno) {
                 if (alumno.baja == false) {
                     arrayRespuesta= arrayRespuesta.concat(alumno)
                 }
