@@ -202,7 +202,7 @@ exports.filtroClases = async function (req, res) {  // esta
     }
 
     //filtroFinal = { filtroMateria, filtroTipo, filtroFrecuencia, filtroPrecio, filtroClasificacion }
-
+    console.log(filtroFinal)
     try {
         var Clases = await ClaseService.getClases(filtroFinal)
         // Return the Users list with the appropriate HTTP password Code and Message.
