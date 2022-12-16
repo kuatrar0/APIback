@@ -191,21 +191,21 @@ exports.filtroClases = async function (req, res) {  // esta
     }
 
     if (req.body.frecuencia == null) {
-        filtroFrecuencia = { materia: { $ne: null } }
+        filtroFrecuencia = { frecuencia : { $ne: null } }
     }
     else {
-        filtroFrecuencia = { materia: req.body.frequencia }
+        filtroFrecuencia = { frecuencia: req.body.frequencia }
     }
 
     if (req.body.precio == null) {
-        filtroPrecio = { materia: { $ne: null } }
+        filtroPrecio = { precio: { $ne: null } }
     }
     else {
         filtroPrecio = { $and: [{ precio: { $gte: req.body.precioMax } }, { precio: { $lte: req.body.precioMin } }] }
     }
 
     if (req.body.clasificacion == null) {
-        filtroClasificacion = { materia: { $ne: null } }
+        filtroClasificacion = { clasificacion: { $ne: null } }
     }
     else {
         filtroClasificacion = { $and: [{ clasificacion: { $gte: req.body.clasificacionMax } }, { clasificacion: { $lte: req.body.clasificacionMin } }] }
