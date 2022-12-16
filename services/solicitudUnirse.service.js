@@ -65,7 +65,7 @@ exports.aceptarSolicitud = async function (solicitud) {
     }
     try {
         //Find the old User Object by the Id
-        var usuarioAUnir = await User.findById(controlSol.alumnoID);
+        var usuarioAUnir = await User.find({_id: controlSol.alumnoID});
     } catch (e) {
         throw Error("Error occured while Finding the Solicitud")
     }
@@ -75,7 +75,7 @@ exports.aceptarSolicitud = async function (solicitud) {
     }
     try {
         //Find the old User Object by the Id
-        var claseAUnir = await Clase.findById(controlSol.claseID);
+        var claseAUnir = await Clase.find({_id:controlSol.claseID});
     } catch (e) {
         throw Error("Error occured while Finding the Clase")
     }
@@ -87,7 +87,8 @@ exports.aceptarSolicitud = async function (solicitud) {
     claseAUnir.alumnos = claseAUnir.alumnos.concat([{
         idAlu: usuarioAUnir._id,
         nombreAlu: usuarioAUnir.nombre,
-        baja: false
+        baja: false,
+
     }])
     usuarioAUnir.clasesAnotado = usuarioAUnir.clasesAnotado.concat([{
         idclase: claseAUnir._id,
