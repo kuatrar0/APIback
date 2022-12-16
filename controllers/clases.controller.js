@@ -175,6 +175,7 @@ exports.modificarEstado = async function (req, res) { // esta
 
 exports.filtroClases = async function (req, res) {  // esta 
     // Check the existence of the query parameters, If doesn't exists assign a default value
+    console.log(req.body)
     if (req.body.materia == null) {
         filtroMateria = { materia: { $ne: null } }
     }
