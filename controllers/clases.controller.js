@@ -171,3 +171,55 @@ exports.modificarEstado = async function (req, res) { // esta
         return res.status(400).json({ status: 400., message: e.message })
     }
 }
+
+
+exports.getClases = async function (req, res) {  // esta 
+    // Check the existence of the query parameters, If doesn't exists assign a default value
+    if(req.body.materia == null){
+        let filtroMateria = {materia: {$ne: null}}
+    }
+    else{
+        let filtroMateria = {materia: req.body.materia}
+    }
+
+    if(req.body.tipo == null){
+        let filtroTipo = {tipo: {$ne: null}}
+    }
+    else{
+        let filtroTipo = {tipo: { $in: req.body.tipo}}
+
+    }
+
+    if(req.body.frecuencia == null){
+        let filtroFrecuencia = {materia: {$ne: null}}
+    }
+    else{
+        let filtroFrecuencia = {materia: req.body.frequencia}
+    }
+
+    if(req.body.precio == null){
+        let filtroPrecio = {materia: {$ne: null}}
+    }
+    else{
+        let filtroPrecio = {$and: [{precio: { $gte: req.body.precio[0]}} ,{precio: {$lte:req.body.precio[1]}}]}
+    }
+    
+    if(req.body.clasificacion == null){
+        let filtroClasificacion = {materia: {$ne: null}}
+    }
+    else{
+        let filtroClasificacion = {materia: req.materia}
+    }
+
+
+    let filtroFinal={filtroMateria, filtroTipo, filtroFrecuencia, filtroPrecio, filtroClasificacion}
+
+    try {
+        var Clases = await ClaseService.getClases({filtroFinal})
+        // Return the Users list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({ status: 200, data: Clases, message: "Succesfully Clases Recieved" });
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(404).json({ status: 404, message: e.message });
+    }
+}

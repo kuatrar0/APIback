@@ -6,6 +6,7 @@ var SolicitudUnirseSchema = new mongoose.Schema({
     //tambien tengo que agregar todo los atrib de la clase a la que se quiere unir
     claseID: String,
     alumnoID: String,
+    profesorID: String,
     solicitud: String,
     horario: String, 
     estado: String, //puede ser Pendiente, Aprobado o Rechazado

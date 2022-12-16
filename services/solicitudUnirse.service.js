@@ -21,6 +21,7 @@ exports.createSolicitudUnirse = async function (solicitudUnirse) {
         var nuevaSolicitud = new SolicitudUnirse({
             claseID: solicitudUnirse.claseID,
             alumnoID: solicitudUnirse.alumnoID,
+            profesorID: solicitudUnirse.profesorID,
             nombreAlu: solicitudUnirse.nombreAlu,
             solicitud: solicitudUnirse.solicitud,
             horario: solicitudUnirse.horario,

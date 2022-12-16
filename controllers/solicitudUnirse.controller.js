@@ -7,6 +7,7 @@ exports.createSolicitud = async function (req, res) {
     var Solicitud = {
         claseID: req.body.claseID,
         alumnoID: req.body.alumnoID,
+        profesorID: req.body.profesorID,
         nombreAlu: req.body.nombreAlu,
         solicitud: req.body.solicitud,
         horario: req.body.horario,
