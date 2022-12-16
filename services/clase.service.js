@@ -57,7 +57,7 @@ exports.getAlumnosSer = async function (query, queryAlu) {
     try {
         var Clases = await Clase.find(query)
         console.log(Clases)
-        if (Clases.alumnos.length < 1) {
+        if (Clases.alumnos.length() < 1) {
             throw Error("¡NO HAY ALUMNOS EN TU CLASE!")
 
         }
