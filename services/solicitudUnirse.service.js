@@ -11,17 +11,20 @@ _this = this
 
 exports.createSolicitudUnirse = async function (solicitudUnirse) {
     // Creating a new Mongoose Object by using the new keyword
+    console.log(solicitudUnirse.materia)
     var nuevaSolicitud = new SolicitudUnirse({
         claseID: solicitudUnirse.claseID,
         alumnoID: solicitudUnirse.alumnoID,
         nombreAlu: solicitudUnirse.nombreAlu,
         solicitud: solicitudUnirse.solicitud,
         horario: solicitudUnirse.horario,
-        estado: "pendiente",
         profesor: solicitudUnirse.profesor,
-        materia: solicitudUnirse.materia        
+        materia: solicitudUnirse.materia23,
+        estado: "pendiente",
+
     })
-    
+
+    console.log(nuevaSolicitud)
     try {
         // Saving the User 
         var savedSolicitudNueva = await nuevaSolicitud.save();
@@ -33,7 +36,7 @@ exports.createSolicitudUnirse = async function (solicitudUnirse) {
         return token;
     } catch (e) {
         // return a Error message describing the reason 
-        console.log(e)    
+        console.log(e)
         throw Error("Error while Creating Solicitud")
     }
 }
@@ -88,14 +91,14 @@ exports.aceptarSolicitud = async function (solicitud) {
         profesor: claseAUnir.profesor,
         materia: claseAUnir.materia,
         clasificacion: 0,
-        
-        
+
+
     }])
     try {
         var controlUser = await usuarioAUnir.save()
         var controlClase = await claseAUnir.save()
     } catch (e) {
-        throw Error("And Error occured while updating the UserSolicitud" );
+        throw Error("And Error occured while updating the UserSolicitud");
     }
     try {
         controlSol.estado = "aprobado"
@@ -127,11 +130,11 @@ exports.rechazarSolicitud = async function (solicitudRechazada) {
 }
 
 exports.getSolicitudes = async function (query) {
-    try{ 
+    try {
         var Solicitudes = await SolicitudUnirse.find(query)
         return Solicitudes
     }
-    catch(e){
+    catch (e) {
         console.log("error services", e)
         throw Error('Error while Paginating Clases');
     }

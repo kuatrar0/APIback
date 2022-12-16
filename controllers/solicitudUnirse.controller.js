@@ -10,9 +10,10 @@ exports.createSolicitud = async function (req, res) {
         nombreAlu: req.body.nombreAlu,
         solicitud: req.body.solicitud,
         horario: req.body.horario,
-        profesor: req.profesor,
-        materia: req.materia   
+        profesor: req.body.profesor,
+        materia: req.body.materia   
     }
+    console.log(Solicitud.materia)
     try {
         // Calling the Service function with the new object from the Request Body
         var createdSolicitud = await SolicitudUnirseService.createSolicitudUnirse(Solicitud)
