@@ -52,11 +52,10 @@ exports.getComentarios = async function (query) {
 }
 
 
-//PEDIR AYUDA ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 exports.getAlumnosSer = async function (query, queryAlu) {
     try {
         var Clases = await Clase.find(query)
-        console.log(Clases)
+        console.log(Clases.alumnos)
         let arrayRespuesta = []
         Clases.alumnos.forEach(function (alumno) {
             if (alumno.baja == false) {
