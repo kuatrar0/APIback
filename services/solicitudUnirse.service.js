@@ -11,14 +11,12 @@ _this = this
 
 exports.createSolicitudUnirse = async function (solicitudUnirse) {
     // Creating a new Mongoose Object by using the new keyword
-    
     let controlRepeticion = await SolicitudUnirse.find({ claseID: solicitudUnirse.claseID, alumnoID: solicitudUnirse.alumnoID })
-    
     if (controlRepeticion.length > 0 ) {
        throw Error("ya existe una solicitud de este usuario para esta clase")
     }
     else {
-        console.log(solicitudUnirse.profesorID)
+        
         var nuevaSolicitud = new SolicitudUnirse({
             claseID: solicitudUnirse.claseID,
             alumnoID: solicitudUnirse.alumnoID,
@@ -30,7 +28,6 @@ exports.createSolicitudUnirse = async function (solicitudUnirse) {
             materia: solicitudUnirse.materia,
             mail: solicitudUnirse.mail,
             estado: "pendiente",
-
         })
         try {
             // Saving the User 
@@ -53,10 +50,10 @@ exports.createSolicitudUnirse = async function (solicitudUnirse) {
 
 
 exports.aceptarSolicitud = async function (solicitud) {
-    
     try {
         //Find the old User Object by the Id
-        var controlSol = await SolicitudUnirse.findById(solicitud);
+        var controlSol = await SolicitudUnirse.find(solicitud);
+
 
     } catch (e) {
         throw Error("Error occured while Finding the Solicitud")
@@ -66,7 +63,7 @@ exports.aceptarSolicitud = async function (solicitud) {
     }
     try {
         //Find the old User Object by the Id
-        var usuarioAUnir = await User.find({_id: controlSol.alumnoID});
+        var usuarioAUnir = await User.findById(controlSol.alumnoID);
     } catch (e) {
         throw Error("Error occured while Finding the Solicitud")
     }
@@ -76,7 +73,7 @@ exports.aceptarSolicitud = async function (solicitud) {
     }
     try {
         //Find the old User Object by the Id
-        var claseAUnir = await Clase.find({_id:controlSol.claseID});
+        var claseAUnir = await Clase.findById(controlSol.claseID);
     } catch (e) {
         throw Error("Error occured while Finding the Clase")
     }
@@ -89,7 +86,7 @@ exports.aceptarSolicitud = async function (solicitud) {
         idAlu: usuarioAUnir._id,
         nombreAlu: usuarioAUnir.nombre,
         baja: false,
-
+        
     }])
     usuarioAUnir.clasesAnotado = usuarioAUnir.clasesAnotado.concat([{
         idclase: claseAUnir._id,
