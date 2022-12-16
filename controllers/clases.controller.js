@@ -186,7 +186,7 @@ exports.filtroClases = async function (req, res) {  // esta
     if (req.body.frecuencia == "undefined") {
         filtroFinal.frecuencia = req.body.frecuencia 
     }
-    
+    /*
     if (req.body.precio == "undefined") {
         filtroPrecio = { precio: { $ne: null } }
     }
@@ -200,7 +200,7 @@ exports.filtroClases = async function (req, res) {  // esta
     else {
         var filtroClasificacion = {$and: [{ clasificacion: { $gte: req.body.clasificacionMax } }, { clasificacion: { $lte: req.body.clasificacionMin } }] }
     }
-
+*/
     //filtroFinal = { filtroMateria, filtroTipo, filtroFrecuencia, filtroPrecio, filtroClasificacion }
 
     try {
