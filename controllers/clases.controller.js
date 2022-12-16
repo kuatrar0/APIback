@@ -83,10 +83,8 @@ exports.getComentariosDeClase = async function (req, res) {  // esta
 // devuelve error si no existen alumnos
 exports.getAlumnosCursando = async function (req, res) {
     let filtro = { _id: req.body._id }
-    let filtroAlu = { estado: "cursando" }
     try {
-
-        var Alumnos = await ClaseService.getAlumnosSer(filtro, filtroAlu)
+        var Alumnos = await ClaseService.getAlumnosSer(filtro)
         // Return the Users list with the appropriate HTTP password Code and Message.
         return res.status(200).json({ status: 200, data: Alumnos, message: "Succesfully alumnos Recieved" });
     } catch (e) {
