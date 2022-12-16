@@ -357,6 +357,35 @@ router.put('/modificarEstado', ClaseController.modificarEstado)
 
 
 
+/**
+ * @swagger
+ * /clases/filtroClases:
+ *  post:
+ *      summary: elimina la clase que el profesor desee
+ *      tags: [Clase]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                        materia:
+ *                          type: string
+ *                          description: materia que se quiere buscar
+ *                        tipo:
+ *                          type: array
+ *                          description: valores de tipo que eligio el usuario
+ *                        
+ *      responses:
+ *          201:
+ *              description: Succesfully Clase Deleted
+ */
+router.post('/filtroClases', ClaseController.filtroClases)
+
+
+
+
 
 module.exports = router;
 

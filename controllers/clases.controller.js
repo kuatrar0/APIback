@@ -173,7 +173,7 @@ exports.modificarEstado = async function (req, res) { // esta
 }
 
 
-exports.getClases = async function (req, res) {  // esta 
+exports.filtroClases = async function (req, res) {  // esta 
     // Check the existence of the query parameters, If doesn't exists assign a default value
     if(req.body.materia == null){
         let filtroMateria = {materia: {$ne: null}}
@@ -203,14 +203,13 @@ exports.getClases = async function (req, res) {  // esta
     else{
         let filtroPrecio = {$and: [{precio: { $gte: req.body.precio[0]}} ,{precio: {$lte:req.body.precio[1]}}]}
     }
-    
+
     if(req.body.clasificacion == null){
         let filtroClasificacion = {materia: {$ne: null}}
     }
     else{
-        let filtroClasificacion = {materia: req.materia}
+        let filtroClasificacion = {$and: [{clasificacion: { $gte: req.body.clasificacion[0]}} ,{clasificacion: {$lte:req.body.clasificacion[1]}}]}
     }
-
 
     let filtroFinal={filtroMateria, filtroTipo, filtroFrecuencia, filtroPrecio, filtroClasificacion}
 
