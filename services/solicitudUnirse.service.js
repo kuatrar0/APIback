@@ -19,7 +19,7 @@ exports.createSolicitudUnirse = async function (solicitudUnirse) {
         solicitud: solicitudUnirse.solicitud,
         horario: solicitudUnirse.horario,
         profesor: solicitudUnirse.profesor,
-        materia: solicitudUnirse.materia23,
+        materia: solicitudUnirse.materia,
         estado: "pendiente",
 
     })
