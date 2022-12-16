@@ -187,7 +187,7 @@ exports.filtroClases = async function (req, res) {  // esta
         filtroTipo = { tipo: { $ne: null } }
     }
     else {
-        filtroTipo = { tipo: { $in: req.body.tipo } }
+        filtroTipo = { tipo: req.body.tipo  }
 
     }
 
@@ -195,7 +195,7 @@ exports.filtroClases = async function (req, res) {  // esta
         filtroFrecuencia = { frecuencia : { $ne: null } }
     }
     else {
-        filtroFrecuencia = { frecuencia: req.body.frequencia }
+        filtroFrecuencia = { frecuencia: req.body.frecuencia }
     }
 
     if (req.body.precio == null) {
