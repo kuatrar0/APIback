@@ -36,7 +36,7 @@ exports.createClase = async function (clase) {
     } catch (e) {
         // return a Error message describing the reason 
         console.log(e)
-        throw Error("Error while Creating Clase")
+        throw Error(e)
     }
 }
 

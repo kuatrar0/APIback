@@ -11,34 +11,39 @@ _this = this
 
 exports.createSolicitudUnirse = async function (solicitudUnirse) {
     // Creating a new Mongoose Object by using the new keyword
-    console.log(solicitudUnirse.materia)
-    var nuevaSolicitud = new SolicitudUnirse({
-        claseID: solicitudUnirse.claseID,
-        alumnoID: solicitudUnirse.alumnoID,
-        nombreAlu: solicitudUnirse.nombreAlu,
-        solicitud: solicitudUnirse.solicitud,
-        horario: solicitudUnirse.horario,
-        profesor: solicitudUnirse.profesor,
-        materia: solicitudUnirse.materia,
-        mail: solicitudUnirse.mail,
-        estado: "pendiente",
+    
+    controlRepeticion = await SolicitudUnirse.findOne({ claseID: solicitudUnirse.claseID, alumnoID: solicitudUnirse.alumnoID })
+    console.log(controlRepeticion)
+    if (controlRepeticion = ! null) {
+       throw Error("ya existe una solicitud de este usuario para esta clase")
+    }
+    else {
+        var nuevaSolicitud = new SolicitudUnirse({
+            claseID: solicitudUnirse.claseID,
+            alumnoID: solicitudUnirse.alumnoID,
+            nombreAlu: solicitudUnirse.nombreAlu,
+            solicitud: solicitudUnirse.solicitud,
+            horario: solicitudUnirse.horario,
+            profesor: solicitudUnirse.profesor,
+            materia: solicitudUnirse.materia,
+            mail: solicitudUnirse.mail,
+            estado: "pendiente",
 
-    })
-
-    console.log(nuevaSolicitud)
-    try {
-        // Saving the User 
-        var savedSolicitudNueva = await nuevaSolicitud.save();
-        var token = jwt.sign({
-            id: savedSolicitudNueva._id
-        }, process.env.SECRET, {
-            expiresIn: 86400 // expires in 24 hours
-        });
-        return token;
-    } catch (e) {
-        // return a Error message describing the reason 
-        console.log(e)
-        throw Error("Error while Creating Solicitud")
+        })
+        try {
+            // Saving the User 
+            var savedSolicitudNueva = await nuevaSolicitud.save();
+            var token = jwt.sign({
+                id: savedSolicitudNueva._id
+            }, process.env.SECRET, {
+                expiresIn: 86400 // expires in 24 hours
+            });
+            return token;
+        } catch (e) {
+            // return a Error message describing the reason 
+            console.log(e)
+            throw Error("Error while Creating Solicitud")
+        }
     }
 }
 
