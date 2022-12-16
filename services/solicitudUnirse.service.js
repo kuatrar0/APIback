@@ -98,6 +98,7 @@ exports.aceptarSolicitud = async function (solicitud) {
 
 
     }])
+    controlSol.estado = "aprobado"
     try {
         var controlUser = await usuarioAUnir.save()
         var controlClase = await claseAUnir.save()
@@ -105,7 +106,7 @@ exports.aceptarSolicitud = async function (solicitud) {
         throw Error("And Error occured while updating the UserSolicitud");
     }
     try {
-        controlSol.estado = "aprobado"
+        
         var savedSolicitud = await controlSol.save()
         return savedSolicitud;
     } catch (e) {
@@ -124,8 +125,9 @@ exports.rechazarSolicitud = async function (solicitudRechazada) {
     if (!solRechaz) {
         return false;
     }
+    solRechaz.estado = "rechazada"
     try {
-        solRechaz.estado = "rechazada"
+       
         var savedSolicitud = await solRechaz.save()
         return savedSolicitud;
     } catch (e) {
