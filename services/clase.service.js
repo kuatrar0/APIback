@@ -195,6 +195,8 @@ exports.getAlumnos = async function (query) {
 exports.bajaClaseSer = async function (ClaseBajar, AlumnoBaja) {
     let idClase = ClaseBajar._id
     let idAlumno = AlumnoBaja._id
+    console.log(AlumnoBaja)
+    console.log(ClaseBajar)
     try {
         //Find the old User Object by the Id
         var claseBajarse = await Clase.findById(idClase);
@@ -227,7 +229,9 @@ exports.bajaClaseSer = async function (ClaseBajar, AlumnoBaja) {
             cont++
         })
         if (flag == true) {
-            usuarioABajar.clasesAnotado[ubicacion] = AlumnoBaja.estadoAlu
+            console.log(usuarioABajar.clasesAnotado[ubicacion] )
+            usuarioABajar.clasesAnotado[ubicacion].estado = AlumnoBaja.estadoAlu
+            console.log(usuarioABajar.clasesAnotado[ubicacion] )
         }
         flag = false
         cont = 0
@@ -240,7 +244,7 @@ exports.bajaClaseSer = async function (ClaseBajar, AlumnoBaja) {
             cont++
         })
         if (flag == true) {
-            claseBajarse.alumnos[ubicacion] = true
+            claseBajarse.alumnos[ubicacion].baja = true
         }
         var savedClase= claseBajarse.save()
         var savedAlumno = usuarioABajar.save()
