@@ -180,19 +180,13 @@ exports.filtroClases = async function (req, res) {  // esta
     }
 
     if (req.body.tipo =! "undefined") {
-        filtroTipo = { tipo: { $ne: null } }
+        filtroFinal.tipo = req.body.tipo 
     }
-    else {
-        filtroTipo = { tipo: req.body.tipo  }
-    }
-
+   
     if (req.body.frecuencia == "undefined") {
-        filtroFrecuencia = { frecuencia : { $ne: null } }
+        filtroFinal.frecuencia = req.body.frecuencia 
     }
-    else {
-        filtroFrecuencia = { frecuencia: req.body.frecuencia }
-    }
-
+    
     if (req.body.precio == "undefined") {
         filtroPrecio = { precio: { $ne: null } }
     }
@@ -207,7 +201,7 @@ exports.filtroClases = async function (req, res) {  // esta
         var filtroClasificacion = {$and: [{ clasificacion: { $gte: req.body.clasificacionMax } }, { clasificacion: { $lte: req.body.clasificacionMin } }] }
     }
 
-    filtroFinal = { filtroMateria, filtroTipo, filtroFrecuencia, filtroPrecio, filtroClasificacion }
+    //filtroFinal = { filtroMateria, filtroTipo, filtroFrecuencia, filtroPrecio, filtroClasificacion }
 
     try {
         var Clases = await ClaseService.getClases(filtroFinal)
