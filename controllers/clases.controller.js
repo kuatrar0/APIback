@@ -97,8 +97,6 @@ exports.getAlumnosCursando = async function (req, res) {
 
 // PREGUNTAR COMO HACER esTA A TOMI
 exports.bajaClase = async function (req, res) { // esta 
-
-    // Id is necessary for the update
     if (!req.body) {
         return res.status(400).json({ status: 400., message: "no hay ids!!!!! ALGO MALO PASO" })
     }
@@ -121,8 +119,6 @@ exports.bajaClase = async function (req, res) { // esta
 
 
 exports.eliminarClase = async function (req, res) { // esta 
-
-    // Id is necessary for the update
     if (!req.body._id) {
         return res.status(400).json({ status: 400., message: "no hay id!!!!! ALGO MALO PASO" })
     }
@@ -139,8 +135,6 @@ exports.eliminarClase = async function (req, res) { // esta
 
 
 exports.modificarClase = async function (req, res) { // esta 
-
-    // Id is necessary for the update
     if (!req.body._id) {
         return res.status(400).json({ status: 400., message: "no hay id!!!!! ALGO MALO PASO" })
     }
@@ -162,8 +156,6 @@ exports.modificarClase = async function (req, res) { // esta
 }
 
 exports.modificarEstado = async function (req, res) { // esta 
-
-    // Id is necessary for the update
     if (!req.body._id) {
         return res.status(400).json({ status: 400., message: "no hay id!!!!! ALGO MALO PASO" })
     }

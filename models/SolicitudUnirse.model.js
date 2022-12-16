@@ -11,7 +11,8 @@ var SolicitudUnirseSchema = new mongoose.Schema({
     estado: String, //puede ser Pendiente, Aprobado o Rechazado
     profesor: String, 
     materia: String,
-    nombreAlu: String
+    nombreAlu: String,
+    mail: String
 })
 
 SolicitudUnirseSchema.plugin(mongoosePaginate)

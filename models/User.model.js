@@ -22,7 +22,8 @@ var UserSchema = new mongoose.Schema({
         estado: String ,// puede ser cancelado, cursando o terminado
         profesor: String,
         materia: String,
-        clasificacionDada: Number
+        clasificacionDada: Number,
+        
     }],
 })
 

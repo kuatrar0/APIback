@@ -11,7 +11,8 @@ exports.createSolicitud = async function (req, res) {
         solicitud: req.body.solicitud,
         horario: req.body.horario,
         profesor: req.body.profesor,
-        materia: req.body.materia   
+        materia: req.body.materia,
+        mail: req.body.mail 
     }
     console.log(Solicitud.materia)
     try {
