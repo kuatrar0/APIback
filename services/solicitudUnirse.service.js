@@ -12,9 +12,9 @@ _this = this
 exports.createSolicitudUnirse = async function (solicitudUnirse) {
     // Creating a new Mongoose Object by using the new keyword
     
-    controlRepeticion = await SolicitudUnirse.findOne({ claseID: solicitudUnirse.claseID, alumnoID: solicitudUnirse.alumnoID })
-    console.log(controlRepeticion)
-    if (controlRepeticion = ! null) {
+    let controlRepeticion = await SolicitudUnirse.find({ claseID: solicitudUnirse.claseID, alumnoID: solicitudUnirse.alumnoID })
+    console.log(controlRepeticion.length)
+    if (controlRepeticion.length > 0 ) {
        throw Error("ya existe una solicitud de este usuario para esta clase")
     }
     else {
