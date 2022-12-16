@@ -11,7 +11,7 @@ exports.createClase = async function (req, res) {
         frecuencia: req.body.frecuencia,
         costo: req.body.costo,
         descripcion: req.body.descripcion,
-        tipo:req.body.tipo
+        tipo: req.body.tipo
     }
     try {
         // Calling the Service function with the new object from the Request Body
@@ -83,9 +83,9 @@ exports.getComentariosDeClase = async function (req, res) {  // esta
 // devuelve error si no existen alumnos
 exports.getAlumnosCursando = async function (req, res) {
     let filtro = { _id: req.body._id }
-    let filtroAlu = { estado: "cursando"} 
+    let filtroAlu = { estado: "cursando" }
     try {
-        
+
         var Alumnos = await ClaseService.getAlumnosSer(filtro, filtroAlu)
         // Return the Users list with the appropriate HTTP password Code and Message.
         return res.status(200).json({ status: 200, data: Alumnos, message: "Succesfully alumnos Recieved" });
@@ -93,7 +93,6 @@ exports.getAlumnosCursando = async function (req, res) {
         //Return an Error Response Message with Code and the Error Message.
         return res.status(404).json({ status: 404, message: e.message });
     }
-
 }
 
 // PREGUNTAR COMO HACER esTA A TOMI
@@ -101,10 +100,10 @@ exports.bajaClase = async function (req, res) { // esta
 
     // Id is necessary for the update
     if (!req.body) {
-        return res.status(400).json({status: 400., message: "no hay ids!!!!! ALGO MALO PASO"})
+        return res.status(400).json({ status: 400., message: "no hay ids!!!!! ALGO MALO PASO" })
     }
     var ClaseBajar = {
-       
+
         _id: req.body._idClase ? req.body._idClase : null,
     }
     var AlumnoBaja = {
@@ -113,9 +112,9 @@ exports.bajaClase = async function (req, res) { // esta
     }
     try {
         var bajaClase = await ClaseService.bajaClaseSer(ClaseBajar, AlumnoBaja)
-        return res.status(200).json({status: 200, data: bajaClase, message: "Succesfully baja clase"})
+        return res.status(200).json({ status: 200, data: bajaClase, message: "Succesfully baja clase" })
     } catch (e) {
-        return res.status(400).json({status: 400., message: e.message})
+        return res.status(400).json({ status: 400., message: e.message })
     }
 }
 
@@ -125,16 +124,16 @@ exports.eliminarClase = async function (req, res) { // esta
 
     // Id is necessary for the update
     if (!req.body._id) {
-        return res.status(400).json({status: 400., message: "no hay id!!!!! ALGO MALO PASO"})
+        return res.status(400).json({ status: 400., message: "no hay id!!!!! ALGO MALO PASO" })
     }
     var Clase = {
         _id: req.body._id ? req.body._id : null,
     }
     try {
         var eliminada = await ClaseService.eliminarClaseSer(Clase)
-        return res.status(200).json({status: 200, data: eliminada, message: "Succesfully Clase Deleted"})
+        return res.status(200).json({ status: 200, data: eliminada, message: "Succesfully Clase Deleted" })
     } catch (e) {
-        return res.status(400).json({status: 400., message: e.message})
+        return res.status(400).json({ status: 400., message: e.message })
     }
 }
 
@@ -143,22 +142,22 @@ exports.modificarClase = async function (req, res) { // esta
 
     // Id is necessary for the update
     if (!req.body._id) {
-        return res.status(400).json({status: 400., message: "no hay id!!!!! ALGO MALO PASO"})
+        return res.status(400).json({ status: 400., message: "no hay id!!!!! ALGO MALO PASO" })
     }
     var Clase = {
-       
+
         _id: req.body._id ? req.body._id : null,
         duracion: req.body.duracion ? req.body.duracion : null,
         frecuencia: req.body.frecuencia ? req.body.frecuencia : null,
         costo: req.body.costo ? req.body.costo : null
-        
+
 
     }
     try {
         var modificarClase = await ClaseService.modificarClaseSer(Clase)
-        return res.status(200).json({status: 200, data: modificarClase, message: "Succesfully Updated clase"})
+        return res.status(200).json({ status: 200, data: modificarClase, message: "Succesfully Updated clase" })
     } catch (e) {
-        return res.status(400).json({status: 400., message: e.message})
+        return res.status(400).json({ status: 400., message: e.message })
     }
 }
 
@@ -166,45 +165,17 @@ exports.modificarEstado = async function (req, res) { // esta
 
     // Id is necessary for the update
     if (!req.body._id) {
-        return res.status(400).json({status: 400., message: "no hay id!!!!! ALGO MALO PASO"})
+        return res.status(400).json({ status: 400., message: "no hay id!!!!! ALGO MALO PASO" })
     }
     var Clase = {
-       
+
         _id: req.body._id ? req.body._id : null,
         estadoClase: req.body.estadoClase ? req.body.estadoClase : null,
     }
     try {
         var modificarEstado = await ClaseService.modificarEstadoSer(Clase)
-        return res.status(200).json({status: 200, data: modificarEstado, message: "Succesfully Updated estado de la clase"})
+        return res.status(200).json({ status: 200, data: modificarEstado, message: "Succesfully Updated estado de la clase" })
     } catch (e) {
-        return res.status(400).json({status: 400., message: e.message})
+        return res.status(400).json({ status: 400., message: e.message })
     }
 }
-//hacer eliminar clase
-
-
-/*
-    perguntar a los chicos como hacer para traer las clases de un usuario
-    si hacerlo en users o clases
-
-
-
-
-
-
-exports.getClasesByidAlumno = async function (req, res) {  // esta 
-
-    // Check the existence of the query parameters, If doesn't exists assign a default value
-    var page = req.query.page ? req.query.page : 1
-    var limit = req.query.limit ? req.query.limit : 10;
-    let filtro = { idAlumno: req.body.idAlumno }
-    try {
-        var Clases = await ClaseService.getClases(filtro, page, limit)
-        // Return the Users list with the appropriate HTTP password Code and Message.
-        return res.status(200).json({ status: 200, data: Clases, message: "Succesfully Clases Recieved" });
-    } catch (e) {
-        //Return an Error Response Message with Code and the Error Message.
-        return res.status(404).json({ status: 404, message: e.message });
-    }
-}*/
-
