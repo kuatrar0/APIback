@@ -57,19 +57,14 @@ exports.getAlumnosSer = async function (query, queryAlu) {
     try {
         var Clases = await Clase.find(query)
         console.log(Clases)
-        if (Clases.alumnos.length() < 1) {
-            throw Error("¡NO HAY ALUMNOS EN TU CLASE!")
+        let arrayRespuesta = []
+        Clases.alumnos.forEach(function (alumno) {
+            if (alumno.baja == false) {
+                arrayRespuesta = arrayRespuesta.concat(alumno)
+            }
+        })
+        return arrayRespuesta
 
-        }
-        else {
-            let arrayRespuesta=[]
-            Clases.alumnos.forEach(function (alumno) {
-                if (alumno.baja == false) {
-                    arrayRespuesta= arrayRespuesta.concat(alumno)
-                }
-            })
-            return arrayRespuesta
-        }
 
     }
     catch (e) {
@@ -234,9 +229,9 @@ exports.bajaClaseSer = async function (ClaseBajar, AlumnoBaja) {
             cont++
         })
         if (flag == true) {
-            console.log(usuarioABajar.clasesAnotado[ubicacion] )
+            console.log(usuarioABajar.clasesAnotado[ubicacion])
             usuarioABajar.clasesAnotado[ubicacion].estado = AlumnoBaja.estadoAlu
-            console.log(usuarioABajar.clasesAnotado[ubicacion] )
+            console.log(usuarioABajar.clasesAnotado[ubicacion])
         }
         flag = false
         cont = 0
@@ -251,7 +246,7 @@ exports.bajaClaseSer = async function (ClaseBajar, AlumnoBaja) {
         if (flag == true) {
             claseBajarse.alumnos[ubicacion].baja = true
         }
-        var savedClase= claseBajarse.save()
+        var savedClase = claseBajarse.save()
         var savedAlumno = usuarioABajar.save()
         return savedClase;
     } catch (e) {
