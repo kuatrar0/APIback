@@ -89,8 +89,6 @@ exports.aceptarSolicitud = async function (solicitud) {
         nombreAlu: usuarioAUnir.nombre,
         baja: false
     }])
-    console.log(usuarioAUnir)
-    console.log(usuarioAUnir.clasesAnotado)
     usuarioAUnir.clasesAnotado = usuarioAUnir.clasesAnotado.concat([{
         idclase: claseAUnir._id,
         idProfesor: claseAUnir._idProfesor,
