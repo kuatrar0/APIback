@@ -7,8 +7,11 @@ exports.createSolicitud = async function (req, res) {
     var Solicitud = {
         claseID: req.body.claseID,
         alumnoID: req.body.alumnoID,
+        nombreAlu: req.body.nombreAlu,
         solicitud: req.body.solicitud,
         horario: req.body.horario,
+        profesor: req.profesor,
+        materia: req.materia   
     }
     try {
         // Calling the Service function with the new object from the Request Body
@@ -61,7 +64,20 @@ exports.rechazarSolicitud = async function (req, res) { // esta
 
 exports.getSolicitudesByClaseID = async function (req, res) {  // esta 
     // Check the existence of the query parameters, If doesn't exists assign a default value
-    let filtro = { idClase: req.body.idClase}
+    let filtro = { claseID: req.body.claseID}
+    try {
+        var Solicitudes = await SolicitudUnirseService.getSolicitudes(filtro)
+        // Return the Users list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({ status: 200, data: Solicitudes, message: "Succesfully Solicitudes Recieved" });
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(404).json({ status: 404, message: e.message });
+    }
+}
+
+exports.getSolicitudesByAlumnoID = async function (req, res) {  // esta 
+    // Check the existence of the query parameters, If doesn't exists assign a default value
+    let filtro = { alumnoID: req.body.alumnoID}
     try {
         var Solicitudes = await SolicitudUnirseService.getSolicitudes(filtro)
         // Return the Users list with the appropriate HTTP password Code and Message.

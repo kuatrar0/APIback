@@ -242,7 +242,7 @@ router.post('/getComentarios', ClaseController.getComentariosDeClase)
  * 
  */
 router.post('/getAlumnosCursando', ClaseController.getAlumnosCursando)
-
+// TENGO QUE CREAR ESTOOO
 /**
  * @swagger
  * /clases/bajaClase:

@@ -19,7 +19,10 @@ var UserSchema = new mongoose.Schema({
     clasesAnotado:[{
         idclase : String,
         idProfesor: String,
-        estado: String // puede ser cancelado, cursando o terminado
+        estado: String ,// puede ser cancelado, cursando o terminado
+        profesor: String,
+        materia: String,
+        clasificacionDada: Number
     }],
 })
 
