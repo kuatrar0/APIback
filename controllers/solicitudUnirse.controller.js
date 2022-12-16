@@ -64,7 +64,7 @@ exports.rechazarSolicitud = async function (req, res) { // esta
 
 exports.getSolicitudesByClaseID = async function (req, res) {  // esta 
     // Check the existence of the query parameters, If doesn't exists assign a default value
-    let filtro = { claseID: req.body.claseID}
+    let filtro = { claseID: req.body.claseID, estado: "pendiente"}
     try {
         var Solicitudes = await SolicitudUnirseService.getSolicitudes(filtro)
         // Return the Users list with the appropriate HTTP password Code and Message.
