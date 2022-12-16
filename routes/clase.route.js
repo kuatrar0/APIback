@@ -376,10 +376,19 @@ router.put('/modificarEstado', ClaseController.modificarEstado)
  *                        tipo:
  *                          type: array
  *                          description: valores de tipo que eligio el usuario
+ *                        frecuencia:
+ *                          type: array
+ *                          description: valores de frecuencia que eligio el usuario
+ *                        precio:
+ *                          type: array
+ *                          description: valores de precio que eligio el usuario
+ *                        clasificacion:
+ *                          type: array
+ *                          description: valores de clasificacion que eligio el usuario
  *                        
  *      responses:
- *          201:
- *              description: Succesfully Clase Deleted
+ *          200:
+ *              description: Succesfully Clase recieved
  */
 router.post('/filtroClases', ClaseController.filtroClases)
 
