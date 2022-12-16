@@ -175,42 +175,42 @@ exports.filtroClases = async function (req, res) {  // esta
     // Check the existence of the query parameters, If doesn't exists assign a default value
     console.log(req.body)
     if (req.body.materia == null) {
-        filtroMateria = { materia: { $ne: null } }
+        var filtroMateria = { materia: { $ne: null } }
     }
     else {
-        filtroMateria = { materia: req.body.materia }
+        var filtroMateria = { materia: req.body.materia }
     }
 
     if (req.body.tipo == null) {
-        filtroTipo = { tipo: { $ne: null } }
+        var filtroTipo = { tipo: { $ne: null } }
     }
     else {
-        filtroTipo = { tipo: req.body.tipo  }
+        var filtroTipo = { tipo: req.body.tipo  }
 
     }
 
     if (req.body.frecuencia == null) {
-        filtroFrecuencia = { frecuencia : { $ne: null } }
+        var filtroFrecuencia = { frecuencia : { $ne: null } }
     }
     else {
-        filtroFrecuencia = { frecuencia: req.body.frecuencia }
+        var filtroFrecuencia = { frecuencia: req.body.frecuencia }
     }
 
     if (req.body.precio == null) {
-        filtroPrecio = { precio: { $ne: null } }
+        var filtroPrecio = { precio: { $ne: null } }
     }
     else {
-        filtroPrecio = { $and: [{ precio: { $gte: req.body.precioMax } }, { precio: { $lte: req.body.precioMin } }] }
+        var filtroPrecio = { $and: [{ precio: { $gte: req.body.precioMax } }, { precio: { $lte: req.body.precioMin } }] }
     }
 
     if (req.body.clasificacion == null) {
-        filtroClasificacion = { clasificacion: { $ne: null } }
+        var filtroClasificacion = { clasificacion: { $ne: null } }
     }
     else {
-        filtroClasificacion = {$and: [{ clasificacion: { $gte: req.body.clasificacionMax } }, { clasificacion: { $lte: req.body.clasificacionMin } }] }
+        var filtroClasificacion = {$and: [{ clasificacion: { $gte: req.body.clasificacionMax } }, { clasificacion: { $lte: req.body.clasificacionMin } }] }
     }
 
-    let filtroFinal = { filtroMateria, filtroTipo, filtroFrecuencia, filtroPrecio, filtroClasificacion }
+    var filtroFinal = { filtroMateria, filtroTipo, filtroFrecuencia, filtroPrecio, filtroClasificacion }
 
     try {
         var Clases = await ClaseService.getClases({ filtroFinal })
