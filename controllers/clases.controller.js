@@ -175,46 +175,46 @@ exports.modificarEstado = async function (req, res) { // esta
 
 exports.filtroClases = async function (req, res) {  // esta 
     // Check the existence of the query parameters, If doesn't exists assign a default value
-    if(req.body.materia == null){
-        let filtroMateria = {materia: {$ne: null}}
+    if (req.body.materia == null) {
+        filtroMateria = { materia: { $ne: null } }
     }
-    else{
-        let filtroMateria = {materia: req.body.materia}
-    }
-
-    if(req.body.tipo == null){
-        let filtroTipo = {tipo: {$ne: null}}
-    }
-    else{
-        let filtroTipo = {tipo: { $in: req.body.tipo}}
-
+    else {
+        filtroMateria = { materia: req.body.materia }
     }
 
-    if(req.body.frecuencia == null){
-        let filtroFrecuencia = {materia: {$ne: null}}
+    if (req.body.tipo == null) {
+        filtroTipo = { tipo: { $ne: null } }
     }
-    else{
-        let filtroFrecuencia = {materia: req.body.frequencia}
+    else {
+        filtroTipo = { tipo: { $in: req.body.tipo } }
+
     }
 
-    if(req.body.precio == null){
-        let filtroPrecio = {materia: {$ne: null}}
+    if (req.body.frecuencia == null) {
+        filtroFrecuencia = { materia: { $ne: null } }
     }
-    else{
-        let filtroPrecio = {$and: [{precio: { $gte: req.body.precioMax}} ,{precio: {$lte:req.body.precioMin}}]}
-    }
-
-    if(req.body.clasificacion == null){
-        let filtroClasificacion = {materia: {$ne: null}}
-    }
-    else{
-        let filtroClasificacion = {$and: [{clasificacion: { $gte: req.body.clasificacionMax}} ,{clasificacion: {$lte:req.body.clasificacionMin}}]}
+    else {
+        filtroFrecuencia = { materia: req.body.frequencia }
     }
 
-    let filtroFinal={filtroMateria, filtroTipo, filtroFrecuencia, filtroPrecio, filtroClasificacion}
+    if (req.body.precio == null) {
+        filtroPrecio = { materia: { $ne: null } }
+    }
+    else {
+        filtroPrecio = { $and: [{ precio: { $gte: req.body.precioMax } }, { precio: { $lte: req.body.precioMin } }] }
+    }
+
+    if (req.body.clasificacion == null) {
+        filtroClasificacion = { materia: { $ne: null } }
+    }
+    else {
+        filtroClasificacion = { $and: [{ clasificacion: { $gte: req.body.clasificacionMax } }, { clasificacion: { $lte: req.body.clasificacionMin } }] }
+    }
+
+    let filtroFinal = { filtroMateria, filtroTipo, filtroFrecuencia, filtroPrecio, filtroClasificacion }
 
     try {
-        var Clases = await ClaseService.getClases({filtroFinal})
+        var Clases = await ClaseService.getClases({ filtroFinal })
         // Return the Users list with the appropriate HTTP password Code and Message.
         return res.status(200).json({ status: 200, data: Clases, message: "Succesfully Clases Recieved" });
     } catch (e) {
