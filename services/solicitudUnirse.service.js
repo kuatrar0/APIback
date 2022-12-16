@@ -14,10 +14,12 @@ exports.createSolicitudUnirse = async function (solicitudUnirse) {
     var nuevaSolicitud = new SolicitudUnirse({
         claseID: solicitudUnirse.claseID,
         alumnoID: solicitudUnirse.alumnoID,
+        nombreAlu: solicitudUnirse.nombreAlu,
         solicitud: solicitudUnirse.solicitud,
         horario: solicitudUnirse.horario,
-        estado: "pendiente"
-        
+        estado: "pendiente",
+        profesor: solicitudUnirse.profesor,
+        materia: solicitudUnirse.materia        
     })
     
     try {
@@ -71,16 +73,22 @@ exports.aceptarSolicitud = async function (solicitud) {
     if (!claseAUnir || claseAUnir.eliminado == true || claseAUnir.estadoClase == "oculta") {
         return false;
     }
-
-    claseAUnir.alumnos = claseAUnir.concat([{
+    console.log(claseAUnir)
+    claseAUnir.alumnos = claseAUnir.alumnos.concat([{
         idAlu: usuarioAUnir._id,
         nombreAlu: usuarioAUnir.nombre,
         baja: false
     }])
+    console.log(usuarioAUnir)
+    console.log(usuarioAUnir.clasesAnotado)
     usuarioAUnir.clasesAnotado = usuarioAUnir.clasesAnotado.concat([{
         idclase: claseAUnir._id,
         idProfesor: claseAUnir._idProfesor,
         estado: "cursando",
+        profesor: claseAUnir.profesor,
+        materia: claseAUnir.materia,
+        clasificacion: 0,
+        
         
     }])
     try {
@@ -119,10 +127,6 @@ exports.rechazarSolicitud = async function (solicitudRechazada) {
 }
 
 exports.getSolicitudes = async function (query) {
-
-    // Options setup for the mongoose paginate
-   
-    // Try Catch the awaited promise to handle the error 
     try{ 
         var Solicitudes = await SolicitudUnirse.find(query)
         return Solicitudes

@@ -2,6 +2,7 @@
 
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
+const Clase = require('../models/Clase.model');
 const ComentarioAAprobar = require('../models/ComentariosAAprobar.model');
 
 // Saving the context of this module inside the _the variable
@@ -9,12 +10,12 @@ _this = this
 
 exports.createComentarioAAprobar = async function (ComentarioSolicitud) {
     var nuevoComentatarioAAprobar = new ComentarioAAprobar({
-        claseID: ComentarioSolicitud.claseID ,
+        claseID: ComentarioSolicitud.claseID,
         profesorID: ComentarioSolicitud.profesorID,
         alumnoID: ComentarioSolicitud.alumnoID,
         nombreAlumno: ComentarioSolicitud.nombreAlumnoID,
-        comentario:  ComentarioSolicitud.comentario,
-        clasificacion:  ComentarioSolicitud.clasificacion,
+        comentario: ComentarioSolicitud.comentario,
+        clasificacion: ComentarioSolicitud.clasificacion,
         estado: "pendiente", //puede ser Pendiente, Aprobado o Rechazado
         razonDeRechazo: null
     })
@@ -34,7 +35,7 @@ exports.createComentarioAAprobar = async function (ComentarioSolicitud) {
     }
 }
 
-exports.rechazarComentario = async function (ComentarioRechazado) { 
+exports.rechazarComentario = async function (ComentarioRechazado) {
     var id = ComentarioRechazado._id
     try {
         //Find the old User Object by the Id
@@ -57,12 +58,12 @@ exports.rechazarComentario = async function (ComentarioRechazado) {
     }
 
 }
-exports.aprobarComentario= async function (ComentarioAprobado) {
-    var idComentario = ComentarioAprobado._id 
+exports.aprobarComentario = async function (ComentarioAprobado) {
+    var idComentario = ComentarioAprobado._id
 
     try {
         //Find the old User Object by the Id
-        var oldComentarioAAprobar = await ComentarioAAprobar.findOne(idComentario);
+        var oldComentarioAAprobar = await ComentarioAAprobar.findById(idComentario);
     } catch (e) {
         throw Error("Error occured while Finding the comentario")
     }
@@ -79,18 +80,48 @@ exports.aprobarComentario= async function (ComentarioAprobado) {
         throw Error("Error occured while Finding the Clase")
     }
     // If no old User Object exists return false
-    if (!claseAComentar || claseAComentar.eliminado == true ) {
-        return false;
+    if (!claseAComentar || claseAComentar.eliminado == true) {
+        throw Error("La clase que buscas no existe")
     }
-    claseAComentar.comentarios= claseAComentar.concat([{
-        idAlu : ComentarioAprobado.alumnoID,
-        nombreAlu: ComentarioAprobado.nombreAlu,
-        textoComentario: ComentarioAprobado.textoComentario,
-        calsificacionComent: ComentarioAprobado.calsificacionComent,
+    let flag = false
+    let cont = 0
+    let ubicacion= 0
+    claseAComentar.comentarios.forEach(function (coment) {
+        if (coment.idAlu == ComentarioAprobado.idAlu) {
+            flag = true
+            ubicacion= cont
+        }
+        cont++
+    })
+    if (flag == true) {
+        claseAComentar.comentarios[ubicacion].textoComentario = ComentarioAprobado.textoComentario
+        claseAComentar.comentarios[ubicacion].clasificacionComent = ComentarioAprobado.clasificacionComent
+        try {
+            var savedComentarioAAprobar = await oldComentarioAAprobar.save()
+            //hacer calculols de claisificacion primedio aca y abajo en el otro try
+            let suma = 0
+            claseAComentar.comentarios.forEach((x) => { suma += x.clasificacionComent })
+            console.log(suma)
+            claseAComentar.clasificacion = suma / cont
+            var savedClase = await claseAComentar.save()
+            return savedClase
+        }
+        catch (e) {
+            throw Error("And Error occured while updating the Clase");
+        }
     }
-    ])
-
+    else {
+        console.log(ComentarioAprobado)
+        claseAComentar.comentarios = claseAComentar.comentarios.concat([{
+            idAlu: ComentarioAprobado.idAlu,
+            nombreAlu: ComentarioAprobado.nombreAlu,
+            textoComentario: ComentarioAprobado.textoComentario,
+            clasificacionComent: ComentarioAprobado.clasificacionComent
+        }])
+    }
     try {
+        claseAComentar.comentarios.forEach((x) => { suma += x.calsificacionComent })
+        claseAComentar.clasificacion = suma / claseAComentar.comentarios.length()
         var savedComentarioAAprobar = await oldComentarioAAprobar.save()
         var savedClase = await claseAComentar.save()
         return savedClase;
@@ -99,18 +130,18 @@ exports.aprobarComentario= async function (ComentarioAprobado) {
     }
 
 
- }
+}
 
 exports.getComentariosAAprobar = async function (query) {
-    try{ 
+    try {
         var ComentariosAAprobar = await ComentarioAAprobar.find(query)
         return ComentariosAAprobar.comentarios
     }
-    catch(e){
+    catch (e) {
         console.log("error services", e)
         throw Error('Error while Paginating Clases');
     }
 }
- 
+
 
 

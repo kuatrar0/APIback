@@ -56,16 +56,16 @@ exports.getAlumnosSer = async function (query, queryAlu) {
     try {
         var Clases = await Clase.paginate(query)
         console.log(Clases)
-        if(Clases.alumnos == null){
+        if (Clases.alumnos == null) {
             throw Error("¡NO HAY ALUMNOS EN TU CLASE!")
 
         }
-        else{
-            var Alumnos= Clases.alumnos.paginate(queryAlu)
+        else {
+            var Alumnos = Clases.alumnos.paginate(queryAlu)
             console.log(Alumnos)
             return Clases
         }
-        
+
     }
     catch (e) {
         console.log("error services", e)
@@ -143,7 +143,7 @@ exports.eliminarClaseSer = async function (clase) {
 
 
 exports.getClases = async function (query) {
-    
+
     try {
         console.log("Query", query)
         var Clases = await Clase.paginate(query)
@@ -216,10 +216,36 @@ exports.bajaClaseSer = async function (ClaseBajar, AlumnoBaja) {
         return false;
     }
     try {
-        usuarioABajar.clasesAnotado.find(idClase).estado = AlumnoBaja.estadoAlu 
+        let flag = false
+        let cont = 0
+        let ubicacion = 0
+        usuarioABajar.clasesAnotado.forEach(function (clase) {
+            if (clase.idclase == ClaseBajar._id) {
+                flag = true
+                ubicacion = cont
+            }
+            cont++
+        })
+        if (flag == true) {
+            usuarioABajar.clasesAnotado[ubicacion] = AlumnoBaja.estadoAlu
+        }
         claseBajarse.alumnos.find(idAlumno).baja = true
-        var savedSolicitud = await solRechaz.save()
-        return savedSolicitud;
+        flag = false
+        cont = 0
+        ubicacion = 0
+        claseBajarse.alumnos.forEach(function (alumno) {
+            if (alumno.idAlu == Alumno._id) {
+                flag = true
+                ubicacion = cont
+            }
+            cont++
+        })
+        if (flag == true) {
+            claseBajarse.alumnos[ubicacion] = true
+        }
+        var savedClase= claseBajarse.save()
+        var savedAlumno = usuarioABajar.save()
+        return savedClase;
     } catch (e) {
         throw Error("And Error occured while updating the User");
     }

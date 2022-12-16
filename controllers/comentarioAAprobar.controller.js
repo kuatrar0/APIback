@@ -54,10 +54,10 @@ exports.aprobarComentario = async function (req, res) { // esta
     var ComentarioAprobado = {
         _id: req.body._id ? req.body._id : null,
         claseID: req.body.claseID ? req.body.claseID : null,
-        idAlu: req.body.claseID ? req.body.claseID : null,
-        nombreAlu: req.body.claseID ? req.body.claseID : null,
-        textoComentario: req.body.claseID ? req.body.claseID : null,
-        clasificacionComent: req.body.claseID ? req.body.claseID : null
+        idAlu: req.body.idAlu ? req.body.idAlu : null,
+        nombreAlu: req.body.nombreAlu ? req.body.nombreAlu : null,
+        textoComentario: req.body.textoComentario ? req.body.textoComentario : null,
+        clasificacionComent: req.body.clasificacionComent ? req.body.clasificacionComent : null
     }
    
     try {
