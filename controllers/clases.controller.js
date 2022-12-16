@@ -105,7 +105,7 @@ exports.bajaClase = async function (req, res) { // esta
         _id: req.body._idClase ? req.body._idClase : null,
     }
     var AlumnoBaja = {
-        estadoAlu: req.body.estado ? req.body._idAlumno : null,
+        estadoAlu: req.body.estado ? req.body.estado : null,
         _id: req.body._idAlumno ? req.body._idAlumno : null
     }
     try {
