@@ -301,11 +301,10 @@ router.post('/uploadImg',UploadController.uploadFilesImgUser);
 router.post('/imgUserByMail',Authorization,UserController.getImagenUserByMail)
 router.post('/sendMail',MailController.sendEmail)
 
-
-
-
-
 */
+
+
+
 
 router.post('/getClasesAlu', UserController.getAlumnoClases)
 // Export the Router

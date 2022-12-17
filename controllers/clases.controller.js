@@ -170,37 +170,37 @@ exports.modificarEstado = async function (req, res) { // esta
     }
 }
 
-
 exports.filtroClases = async function (req, res) {  // esta 
     // Check the existence of the query parameters, If doesn't exists assign a default value
-    let filtroFinal ={}
-    console.log(req.body)
-    if (req.body.materia =! "undefined") {
-        filtroFinal.materia=  req.body.materia 
+    var filtroFinal ={}
+    let auxMateria = req.body.materia
+    let auxTipo = req.body.tipo
+    let auxFrecuencia = req.body.frecuencia
+    let auxPrecio = req.body.precioMax
+    let auxClasificacion = req.body.clasificacion
+    
+    if (auxMateria ==! undefined) {
+        filtroFinal.materia=  req.body.materia
+        
     }
 
-    if (req.body.tipo =! "undefined") {
-        filtroFinal.tipo = req.body.tipo 
+    if (auxTipo =! undefined) { 
+        filtroFinal.tipo = req.body.tipo    
     }
    
-    if (req.body.frecuencia == "undefined") {
+    if (auxFrecuencia =! undefined) {
         filtroFinal.frecuencia = req.body.frecuencia 
     }
     /*
-    if (req.body.precio == "undefined") {
-        filtroPrecio = { precio: { $ne: null } }
+    if (auxPrecio =! undefined) {
+        filtroFinal.precio = ageMin: { $lte: 0 }, ageMax: { $gte: 2 }
     }
-    else {
-        filtroPrecio = { $and: [{ precio: { $gte: req.body.precioMax } }, { precio: { $lte: req.body.precioMin } }] }
-    }
+/*
+{ $and: ({ precio: { $gte: req.body.precioMax } }, { precio: { $lte: req.body.precioMin } }) }
+    if (auxClasificacion =! undefined) {
+        filtroFinal.clasificacion = {$and: [{ clasificacion: { $gte: req.body.clasificacionMax } }, { clasificacion: { $lte: req.body.clasificacionMin } }] }
+    }*/
 
-    if (req.body.clasificacion == "undefined") {
-        var filtroClasificacion = { clasificacion: { $ne: null } }
-    }
-    else {
-        var filtroClasificacion = {$and: [{ clasificacion: { $gte: req.body.clasificacionMax } }, { clasificacion: { $lte: req.body.clasificacionMin } }] }
-    }
-*/
     //filtroFinal = { filtroMateria, filtroTipo, filtroFrecuencia, filtroPrecio, filtroClasificacion }
     console.log(filtroFinal)
     try {

@@ -82,7 +82,6 @@ exports.aceptarSolicitud = async function (solicitud) {
     }
     // If no old User Object exists return false
     if (!claseAUnir || claseAUnir.eliminado == true || claseAUnir.estadoClase == "oculta") {
-        console.log("clase nula")
         return false;
     }
     
@@ -92,10 +91,10 @@ exports.aceptarSolicitud = async function (solicitud) {
         nombreAlu: usuarioAUnir.nombre,
         baja: false
     }])
-
+   console.log(claseAUnir.idProfesor)
     usuarioAUnir.clasesAnotado = usuarioAUnir.clasesAnotado.concat([{
         idclase: claseAUnir._id,
-        idProfesor: claseAUnir._idProfesor,
+        idProfesor: claseAUnir.idProfesor,
         estado: "cursando",
         profesor: claseAUnir.profesor,
         materia: claseAUnir.materia,
@@ -103,9 +102,9 @@ exports.aceptarSolicitud = async function (solicitud) {
 
 
     }])
-    console.log(controlSol.estado)
+    
     controlSol.estado = "aprobado"
-    console.log(controlSol.estado)
+    
     try {
         var controlUser = await usuarioAUnir.save()
         var controlClase = await claseAUnir.save()
