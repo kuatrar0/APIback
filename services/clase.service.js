@@ -42,8 +42,8 @@ exports.createClase = async function (clase) {
 
 exports.getComentarios = async function (query) {
     try {
-        var Clases = await Clase.find(query)
-       
+        var Clases = await Clase.findById(query)
+        console.log(Clases.comentarios)
         return Clases.comentarios
     }
     catch (e) {
