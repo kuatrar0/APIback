@@ -174,7 +174,7 @@ exports.filtroClases = async function (req, res) {  // esta
     // Check the existence of the query parameters, If doesn't exists assign a default value
     var filtroFinal ={}
     if(req.body.materia){
-        filtroFinal["materia"] = { "$regex": "/"+req.body.materia+"$/" }
+        filtroFinal["materia"] = req.body.materia
     }
     
     if(req.body.tipo){

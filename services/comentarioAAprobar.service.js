@@ -13,7 +13,7 @@ exports.createComentarioAAprobar = async function (ComentarioSolicitud) {
         claseID: ComentarioSolicitud.claseID,
         profesorID: ComentarioSolicitud.profesorID,
         alumnoID: ComentarioSolicitud.alumnoID,
-        nombreAlumno: ComentarioSolicitud.nombreAlumnoID,
+        nombreAlumno: ComentarioSolicitud.nombreAlumno,
         comentario: ComentarioSolicitud.comentario,
         clasificacion: ComentarioSolicitud.clasificacion,
         estado: "pendiente", //puede ser Pendiente, Aprobado o Rechazado
