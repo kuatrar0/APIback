@@ -173,35 +173,24 @@ exports.modificarEstado = async function (req, res) { // esta
 exports.filtroClases = async function (req, res) {  // esta 
     // Check the existence of the query parameters, If doesn't exists assign a default value
     var filtroFinal ={}
-    let auxMateria = req.body.materia
-    let auxTipo = req.body.tipo
-    let auxFrecuencia = req.body.frecuencia
-    let auxPrecio = req.body.precioMax
-    let auxClasificacion = req.body.clasificacion
+    if(req.body.materia){
+        filtroFinal["materia"] = { "$regex": "/"+req.body.materia+"$/" }
+    }
     
-    if (auxMateria ==! undefined) {
-        filtroFinal.materia=  req.body.materia
-        
+    if(req.body.tipo){
+        filtroFinal["tipo"] = req.body.tipo
+    }
+    if(req.body.frecuencia){
+        filtroFinal["frecuencia"] = req.body.frecuencia
+    }
+    if(req.body.precioMin && req.body.precioMax){
+        filtroFinal["costo"] = {"$lte": req.body.precioMax, "$gte": req.body.precioMin}
     }
 
-    if (auxTipo =! undefined) { 
-        filtroFinal.tipo = req.body.tipo    
+    if(req.body.clasificacionMin && req.body.clasificacionMax){
+        filtroFinal["clasificacion"] = {"$lte": req.body.clasificacionMax, "$gte": req.body.clasificacionMin}
     }
-   
-    if (auxFrecuencia =! undefined) {
-        filtroFinal.frecuencia = req.body.frecuencia 
-    }
-    /*
-    if (auxPrecio =! undefined) {
-        filtroFinal.precio = ageMin: { $lte: 0 }, ageMax: { $gte: 2 }
-    }
-/*
-{ $and: ({ precio: { $gte: req.body.precioMax } }, { precio: { $lte: req.body.precioMin } }) }
-    if (auxClasificacion =! undefined) {
-        filtroFinal.clasificacion = {$and: [{ clasificacion: { $gte: req.body.clasificacionMax } }, { clasificacion: { $lte: req.body.clasificacionMin } }] }
-    }*/
-
-    //filtroFinal = { filtroMateria, filtroTipo, filtroFrecuencia, filtroPrecio, filtroClasificacion }
+    
     console.log(filtroFinal)
     try {
         var Clases = await ClaseService.getClases(filtroFinal)

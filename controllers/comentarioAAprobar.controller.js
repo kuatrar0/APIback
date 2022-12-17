@@ -77,7 +77,7 @@ exports.getComentariosAAprobarByidProfesor = async function (req, res) {  // est
     try {
         var ComentariosPendientes = await ComentarioAAprobarService.getComentariosAAprobar(filtro)
         // Return the Users list with the appropriate HTTP password Code and Message.
-        return res.status(200).json({ status: 200, data: ComentariosPendientes, message: "Succesfully Clases Recieved" });
+        return res.status(200).json({ status: 200, data: ComentariosPendientes, message: "Succesfully Comentarios Recieved" });
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         return res.status(404).json({ status: 404, message: e.message });

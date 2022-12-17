@@ -135,11 +135,12 @@ exports.aprobarComentario = async function (ComentarioAprobado) {
 exports.getComentariosAAprobar = async function (query) {
     try {
         var ComentariosAAprobar = await ComentarioAAprobar.find(query)
-        return ComentariosAAprobar.comentarios
+        
+        return ComentariosAAprobar
     }
     catch (e) {
         console.log("error services", e)
-        throw Error('Error while Paginating Clases');
+        
     }
 }
 
