@@ -73,7 +73,7 @@ exports.aprobarComentario = async function (req, res) { // esta
 
 exports.getComentariosAAprobarByidProfesor = async function (req, res) {  // esta 
     // Check the existence of the query parameters, If doesn't exists assign a default value
-    let filtro = { profesorID: req.body.profesorID}
+    let filtro = { profesorID: req.body.profesorID, estado: "aprobado"}
     try {
         var ComentariosPendientes = await ComentarioAAprobarService.getComentariosAAprobar(filtro)
         // Return the Users list with the appropriate HTTP password Code and Message.
