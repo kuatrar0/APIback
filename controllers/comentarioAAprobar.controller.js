@@ -33,7 +33,7 @@ exports.rechazarComentario = async function (req, res) { // esta
     var ComentarioRechazado = {
        
         _id: req.body._id ? req.body._id : null,
-        razonDeRechazo: req.body.razonDeRechazo ? req.body.razonDeRechazo : null,
+       
     }
    
     try {

@@ -49,7 +49,6 @@ exports.rechazarComentario = async function (ComentarioRechazado) {
     }
     //Edit the User Object
     oldComentario.estado = "rechazado"
-    oldComentario.razonDeRechazo = ComentarioRechazado.razonDeRechazo
     try {
         var savedClase = await oldClase.save()
         return savedClase;
