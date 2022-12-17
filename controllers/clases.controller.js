@@ -192,6 +192,43 @@ exports.filtroClases = async function (req, res) {  // esta
     }
     
     console.log(filtroFinal)
+
+
+    /*
+    
+    let auxMateria = req.body.materia
+    let auxTipo = req.body.tipo
+    let auxFrecuencia = req.body.frecuencia
+    let auxPrecio = req.body.precioMax
+    let auxClasificacion = req.body.clasificacion
+    
+    if (auxMateria ==! undefined) {
+        filtroFinal.materia=  req.body.materia
+        
+    }
+
+    if (auxTipo =! undefined) { 
+        filtroFinal.tipo = req.body.tipo    
+    }
+   
+    if (auxFrecuencia =! undefined) {
+        filtroFinal.frecuencia = req.body.frecuencia 
+    }
+    
+    if (auxPrecio =! undefined) {
+        filtroFinal.precio =  {$lte: req.body.precioMin}, {$gte: req.body.precioMax}
+    }
+
+/*
+
+$and: ({ precio: { $gte: req.body.precioMax } }, { precio: { $lte: req.body.precioMin } }) }
+{ 
+    if (auxClasificacion =! undefined) {
+        filtroFinal.clasificacion = {$and: [{ clasificacion: { $gte: req.body.clasificacionMax } }, { clasificacion: { $lte: req.body.clasificacionMin } }] }
+    }*/
+
+    //filtroFinal = { filtroMateria, filtroTipo, filtroFrecuencia, filtroPrecio, filtroClasificacion }
+    
     try {
         var Clases = await ClaseService.getClases(filtroFinal)
         // Return the Users list with the appropriate HTTP password Code and Message.
