@@ -64,6 +64,7 @@ exports.aprobarComentario = async function (ComentarioAprobado) {
     try {
         //Find the old User Object by the Id
         var oldComentarioAAprobar = await ComentarioAAprobar.findById(idComentario);
+        console.log(oldComentarioAAprobar)
     } catch (e) {
         throw Error("Error occured while Finding the comentario")
     }
@@ -76,6 +77,7 @@ exports.aprobarComentario = async function (ComentarioAprobado) {
     try {
         //Find the old User Object by the Id
         var claseAComentar = await Clase.findById(ComentarioAprobado.claseID);
+        console.log(claseAComentar)
     } catch (e) {
         throw Error("Error occured while Finding the Clase")
     }
@@ -85,11 +87,11 @@ exports.aprobarComentario = async function (ComentarioAprobado) {
     }
     let flag = false
     let cont = 0
-    let ubicacion= 0
+    let ubicacion = 0
     claseAComentar.comentarios.forEach(function (coment) {
         if (coment.idAlu == ComentarioAprobado.idAlu) {
             flag = true
-            ubicacion= cont
+            ubicacion = cont
         }
         cont++
     })
@@ -101,8 +103,12 @@ exports.aprobarComentario = async function (ComentarioAprobado) {
             //hacer calculols de claisificacion primedio aca y abajo en el otro try
             let suma = 0
             claseAComentar.comentarios.forEach((x) => { suma += x.clasificacionComent })
-            console.log(suma)
-            claseAComentar.clasificacion = suma / cont
+            if (cont == 0) {
+                claseAComentar.clasificacion = suma / 1
+            }
+            else {
+                claseAComentar.clasificacion = suma / cont
+            }
             var savedClase = await claseAComentar.save()
             return savedClase
         }
@@ -120,13 +126,22 @@ exports.aprobarComentario = async function (ComentarioAprobado) {
         }])
     }
     try {
-        claseAComentar.comentarios.forEach((x) => { suma += x.calsificacionComent })
-        claseAComentar.clasificacion = suma / claseAComentar.comentarios.length()
+        let suma = 0
+
+        claseAComentar.comentarios.forEach((x) => { suma += x.clasificacionComent })
+       
+        if (claseAComentar.comentarios.length == 0) {
+            claseAComentar.clasificacion = suma / 1
+        }
+        else {
+            claseAComentar.clasificacion = suma / claseAComentar.comentarios.length
+        }
+       
         var savedComentarioAAprobar = await oldComentarioAAprobar.save()
         var savedClase = await claseAComentar.save()
         return savedClase;
     } catch (e) {
-        throw Error("And Error occured while updating the Clase");
+        throw Error(e);
     }
 
 
@@ -135,12 +150,12 @@ exports.aprobarComentario = async function (ComentarioAprobado) {
 exports.getComentariosAAprobar = async function (query) {
     try {
         var ComentariosAAprobar = await ComentarioAAprobar.find(query)
-        
+
         return ComentariosAAprobar
     }
     catch (e) {
         console.log("error services", e)
-        
+
     }
 }
 
