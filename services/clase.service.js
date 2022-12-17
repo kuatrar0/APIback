@@ -43,6 +43,7 @@ exports.createClase = async function (clase) {
 exports.getComentarios = async function (query) {
     try {
         var Clases = await Clase.find(query)
+       
         return Clases.comentarios
     }
     catch (e) {
@@ -101,24 +102,6 @@ exports.modificarClaseSer = async function (clase) {
         throw Error("An Error occured while updating the Clase");
     }
 }
-
-
-/*
-exports.eliminarClase = async function (id) {
-    try {
-        var deleted = await Clase.remove({
-            _id: id
-        })
-        if (deleted.n === 0 && deleted.ok === 1) {
-            throw Error("Clase Could not be deleted")
-        }
-        return deleted;
-    } catch (e) {
-        throw Error("Error Occured while Deleting the Clase")
-    }
-}
- VOY A HACERLO CON BAJA LOGICA
-*/
 
 
 exports.eliminarClaseSer = async function (clase) {

@@ -68,7 +68,7 @@ exports.getClasesActivas = async function (req, res) {  // esta
 exports.getComentariosDeClase = async function (req, res) {  // esta 
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
-    let filtro = { idClase: req.body.idClase }
+    let filtro = { _id: req.body.idClase }
     try {
         var Comentarios = await ClaseService.getComentarios(filtro)
         // Return the Users list with the appropriate HTTP password Code and Message.
