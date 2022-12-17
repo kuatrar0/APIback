@@ -39,7 +39,7 @@ exports.rechazarComentario = async function (ComentarioRechazado) {
     var id = ComentarioRechazado._id
     try {
         //Find the old User Object by the Id
-        var oldComentario = await ComentarioAAprobar.findOne(id);
+        var oldComentario = await ComentarioAAprobar.findById(id);
     } catch (e) {
         throw Error("Error occured while Finding the Comentario")
     }
@@ -50,8 +50,8 @@ exports.rechazarComentario = async function (ComentarioRechazado) {
     //Edit the User Object
     oldComentario.estado = "rechazado"
     try {
-        var savedClase = await oldClase.save()
-        return savedClase;
+        var savedComent = await oldComentario.save()
+        return savedComent;
     } catch (e) {
         throw Error("And Error occured while updating the Clase");
     }
